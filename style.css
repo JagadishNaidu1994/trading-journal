@@ -180,3 +180,8 @@ td.loss {
     color: #ffffff;
     font-weight: bold;
 }
+
+/* Action Icons */
+tbody td i {
+    color: #E0E0E0; /* Icon color */
+}
