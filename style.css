@@ -1,55 +1,140 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 10px;
+    background-color: #f5f5f5;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
 }
 
-h1, h2 {
-    text-align: center;
+/* Header */
+h1 {
+    color: #1976D2;
+    margin-bottom: 20px;
 }
 
-.journal-entry, #entriesContainer {
-    margin: 20px 0;
+/* Form Styling */
+.journal-entry {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
 }
 
-label {
-    display: block;
-    margin-top: 10px;
+.journal-entry form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
 }
 
-button {
-    margin-top: 15px;
-    padding: 8px 12px;
-    background-color: #4CAF50;
-    color: white;
+.journal-entry label {
+    font-weight: 500;
+    color: #555;
+}
+
+.journal-entry input,
+.journal-entry button {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.journal-entry input:focus {
+    border-color: #1976D2;
+    box-shadow: 0 0 4px rgba(25, 118, 210, 0.3);
+}
+
+.journal-entry button {
+    grid-column: span 2;
+    background-color: #1976D2;
+    color: #fff;
     border: none;
     cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-button:hover {
-    background-color: #45a049;
+.journal-entry button:hover {
+    background-color: #1565C0;
+}
+
+/* Table Styling */
+#entriesContainer {
+    width: 100%;
+    max-width: 800px;
+}
+
+#entriesContainer h2 {
+    color: #333;
+    margin-bottom: 10px;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-table, th, td {
-    border: 1px solid #ddd;
+thead {
+    background-color: #1976D2;
+    color: #ffffff;
+    text-align: left;
 }
 
-th, td {
-    padding: 8px;
-    text-align: center;
+thead th {
+    padding: 12px;
+    font-weight: 500;
+}
+
+tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #f7f7f7;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #e3f2fd;
+}
+
+tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
 }
 
 .win {
-    color: green;
+    color: #388E3C; /* Material Green for "Win" */
+    font-weight: bold;
 }
 
 .loss {
-    color: red;
+    color: #D32F2F; /* Material Red for "Loss" */
+    font-weight: bold;
+}
+
+/* P&L Color-Coding */
+tbody td.win {
+    background-color: #e8f5e9;
+}
+
+tbody td.loss {
+    background-color: #ffebee;
 }
