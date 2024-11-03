@@ -88,6 +88,7 @@ h1 {
     color: #E0E0E0; /* Light grey for labels */
 }
 
+/* General input styling */
 .modal-content input,
 .modal-content button {
     padding: 12px;
@@ -100,12 +101,20 @@ h1 {
     color: #E0E0E0; /* Light grey text */
 }
 
-/* Fix input appearance for date and time pickers */
+/* Input styling for date and time pickers */
 input[type="date"],
 input[type="time"] {
     color: #E0E0E0; /* Light grey text for inputs */
     background-color: #1E1E1E; /* Dark background for inputs */
     border: 1px solid #444; /* Dark border */
+}
+
+/* Change the color of the date and time pickers */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-clear-button {
+    color: #BB86FC; /* Color of the icon */
 }
 
 /* Input focus */
