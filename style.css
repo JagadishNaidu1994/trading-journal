@@ -56,8 +56,8 @@ h1 {
     margin: 10% auto;
     padding: 20px;
     border-radius: 8px;
-    width: 90%;
-    max-width: 500px;
+    width: 45%; /* Set to 45% of the viewport width */
+    max-width: 400px; /* Maximum width for larger screens */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     position: relative;
 }
@@ -100,12 +100,17 @@ h1 {
     color: #E0E0E0; /* Light grey text */
 }
 
+/* Fix input appearance for date and time pickers */
 input[type="date"],
 input[type="time"] {
-    cursor: pointer; /* Show pointer on hover */
+    color: #E0E0E0; /* Light grey text for inputs */
+    background-color: #1E1E1E; /* Dark background for inputs */
+    border: 1px solid #444; /* Dark border */
 }
 
-.modal-content input:focus {
+/* Input focus */
+input[type="date"]:focus,
+input[type="time"]:focus {
     border-color: #BB86FC; /* Purple border on focus */
     box-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
 }
