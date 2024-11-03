@@ -118,3 +118,11 @@ function addEntry() {
 
     resetForm(); // Reset the form after submission
 }
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector("button").onclick = function() {
+        const element = document.getElementById("yourElementId");
+        if (element) {
+            element.style.color = "red";
+        }
+    };
+});
