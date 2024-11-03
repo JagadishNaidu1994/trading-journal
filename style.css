@@ -185,3 +185,12 @@ td.loss {
 tbody td i {
     color: #E0E0E0; /* Icon color */
 }
+
+/* Add this to style.css */
+
+/* Fix for input appearance */
+input[type="date"],
+input[type="time"] {
+    cursor: pointer; /* Show pointer on hover */
+}
+
