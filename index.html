@@ -12,21 +12,51 @@
         <form id="entryForm">
             <label for="date">Date:</label>
             <input type="date" id="date" required>
-            <label for="tradeType">Trade Type:</label>
-            <input type="text" id="tradeType" placeholder="Long/Short" required>
+            
+            <label for="timeIn">Time In:</label>
+            <input type="time" id="timeIn" required>
+            
+            <label for="timeOut">Time Out:</label>
+            <input type="time" id="timeOut" required>
+            
+            <label for="symbol">Symbol:</label>
+            <input type="text" id="symbol" required>
+            
             <label for="entryPrice">Entry Price:</label>
             <input type="number" id="entryPrice" step="0.01" required>
+            
             <label for="exitPrice">Exit Price:</label>
             <input type="number" id="exitPrice" step="0.01" required>
-            <label for="result">Result (R):</label>
-            <input type="number" id="result" step="0.01" required>
+            
+            <label for="qty">Quantity:</label>
+            <input type="number" id="qty" required>
+            
             <button type="submit">Add Entry</button>
         </form>
     </div>
+    
     <div id="entriesContainer">
-        <h2>Previous Entries</h2>
-        <ul id="entriesList"></ul>
+        <h2>Trades Table</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Time In</th>
+                    <th>Time Out</th>
+                    <th>Symbol</th>
+                    <th>Entry Price</th>
+                    <th>Exit Price</th>
+                    <th>Quantity</th>
+                    <th>Result</th>
+                    <th>P&L</th>
+                </tr>
+            </thead>
+            <tbody id="entriesTable">
+                <!-- Entries will be dynamically added here -->
+            </tbody>
+        </table>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
