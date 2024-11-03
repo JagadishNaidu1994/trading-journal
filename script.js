@@ -1,4 +1,24 @@
 let entries = []; // Store trade entries globally
+function addEntry() {
+    const newEntry = {
+        date: document.querySelector('#date').value,
+        timeIn: document.querySelector('#timeIn').value,
+        timeOut: document.querySelector('#timeOut').value,
+        symbol: document.querySelector('#symbol').value,
+        entryPrice: parseFloat(document.querySelector('#entryPrice').value),
+        exitPrice: parseFloat(document.querySelector('#exitPrice').value),
+        qty: parseInt(document.querySelector('#qty').value),
+    };
+
+    // Calculate result and P&L
+    newEntry.result = newEntry.exitPrice - newEntry.entryPrice > 0 ? 'Win' : 'Loss';
+    newEntry.pl = (newEntry.exitPrice - newEntry.entryPrice) * newEntry.qty;
+
+    entries.push(newEntry); // Add the new entry to the array
+    displayEntries(); // Refresh the table display
+
+    resetForm(); // Reset the form after submission
+}
 
 // Function to display entries
 function displayEntries() {
