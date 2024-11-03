@@ -1,57 +1,42 @@
 document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('entryForm').addEventListener('submit', addEntry);
-    displayEntries();
-});
+    document.getElementById('entryForm').addEventListener('submit', (event) => {
+        event.preventDefault();
 
-function addEntry(event) {
-    event.preventDefault();
+        // Retrieve form values
+        const date = document.getElementById('date').value;
+        const timeIn = document.getElementById('timeIn').value;
+        const timeOut = document.getElementById('timeOut').value;
+        const symbol = document.getElementById('symbol').value;
+        const entryPrice = document.getElementById('entryPrice').value;
+        const exitPrice = document.getElementById('exitPrice').value;
+        const qty = document.getElementById('qty').value;
 
-    const date = document.getElementById('date').value;
-    const timeIn = document.getElementById('timeIn').value;
-    const timeOut = document.getElementById('timeOut').value;
-    const symbol = document.getElementById('symbol').value;
-    const entryPrice = parseFloat(document.getElementById('entryPrice').value);
-    const exitPrice = parseFloat(document.getElementById('exitPrice').value);
-    const qty = parseInt(document.getElementById('qty').value);
+        // Verify all fields have values
+        if (!date || !timeIn || !timeOut || !symbol || !entryPrice || !exitPrice || !qty) {
+            alert("Please fill in all fields correctly.");
+            return;
+        }
 
-    if (!date || !timeIn || !timeOut || !symbol || isNaN(entryPrice) || isNaN(exitPrice) || isNaN(qty)) {
-        alert("Please fill in all fields correctly.");
-        return;
-    }
+        // Calculate Result and P&L
+        const result = exitPrice > entryPrice ? "Win" : "Loss";
+        const pnl = (exitPrice - entryPrice) * qty;
 
-    const result = exitPrice > entryPrice ? "Win" : "Loss";
-    const pnl = (exitPrice - entryPrice) * qty;
-
-    const entry = { date, timeIn, timeOut, symbol, entryPrice, exitPrice, qty, result, pnl };
-    
-    const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
-    entries.push(entry);
-    localStorage.setItem('journalEntries', JSON.stringify(entries));
-
-    displayEntries();
-    document.getElementById('entryForm').reset();
-}
-
-function displayEntries() {
-    const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
-    const entriesTable = document.getElementById('entriesTable');
-    entriesTable.innerHTML = '';
-
-    entries.forEach(entry => {
+        // Create a new row in the table
+        const entriesTable = document.getElementById('entriesTable');
         const row = document.createElement('tr');
-
         row.innerHTML = `
-            <td>${entry.date}</td>
-            <td>${entry.timeIn}</td>
-            <td>${entry.timeOut}</td>
-            <td>${entry.symbol}</td>
-            <td>${entry.entryPrice.toFixed(2)}</td>
-            <td>${entry.exitPrice.toFixed(2)}</td>
-            <td>${entry.qty}</td>
-            <td class="${entry.result === 'Win' ? 'win' : 'loss'}">${entry.result}</td>
-            <td class="${entry.pnl >= 0 ? 'win' : 'loss'}">${entry.pnl.toFixed(2)}</td>
+            <td>${date}</td>
+            <td>${timeIn}</td>
+            <td>${timeOut}</td>
+            <td>${symbol}</td>
+            <td>${parseFloat(entryPrice).toFixed(2)}</td>
+            <td>${parseFloat(exitPrice).toFixed(2)}</td>
+            <td>${qty}</td>
+            <td>${result}</td>
+            <td>${parseFloat(pnl).toFixed(2)}</td>
         `;
 
         entriesTable.appendChild(row);
+        document.getElementById('entryForm').reset();
     });
-}
+});
