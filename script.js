@@ -14,13 +14,13 @@ function displayEntries() {
             <td>${entry.timeIn}</td>
             <td>${entry.timeOut}</td>
             <td>${entry.symbol}</td>
-            <td>${entry.entryPrice}</td>
-            <td>${entry.exitPrice}</td>
+            <td>${entry.entryPrice.toFixed(2)}</td>
+            <td>${entry.exitPrice.toFixed(2)}</td>
             <td>${entry.qty}</td>
             <td class="${entry.result === 'Win' ? 'win' : 'loss'}">${entry.result}</td>
             <td class="${entry.pl > 0 ? 'win' : 'loss'}">${entry.pl.toFixed(2)}</td>
             <td>
-                <i class="fas fa-edit" onclick="editEntry(${index})" style="cursor: pointer; margin-right: 10px;"></i>
+                <i class="fas fa-pencil-alt" onclick="editEntry(${index})" style="cursor: pointer; margin-right: 10px;"></i>
                 <i class="fas fa-trash-alt" onclick="deleteEntry(${index})" style="cursor: pointer;"></i>
             </td>
         `;
