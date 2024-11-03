@@ -1,85 +1,98 @@
-document.addEventListener("DOMContentLoaded", () => {
-    document.getElementById('entryForm').addEventListener('submit', addEntry);
-    displayEntries();
+let entries = []; // Store trade entries globally
 
-    // Modal functionality
-    const modal = document.getElementById("tradeFormModal");
-    const addTradeBtn = document.getElementById("addTradeBtn");
-    const closeBtn = document.querySelector(".close-btn");
-
-    // Show modal on "+ Add Trade" button click
-    addTradeBtn.addEventListener("click", () => {
-        modal.style.display = "block";
-    });
-
-    // Close modal on "x" button click
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
-
-    // Close modal when clicking outside of modal content
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-});
-
-function addEntry(event) {
-    event.preventDefault();
-
-    // Retrieve form values
-    const date = document.getElementById('date').value;
-    const timeIn = document.getElementById('timeIn').value;
-    const timeOut = document.getElementById('timeOut').value;
-    const symbol = document.getElementById('symbol').value;
-    const entryPrice = parseFloat(document.getElementById('entryPrice').value);
-    const exitPrice = parseFloat(document.getElementById('exitPrice').value);
-    const qty = parseInt(document.getElementById('qty').value);
-
-    if (isNaN(entryPrice) || isNaN(exitPrice) || isNaN(qty) || !date || !timeIn || !timeOut || !symbol) {
-        alert("Please fill in all fields correctly.");
-        return;
-    }
-
-    const result = exitPrice > entryPrice ? "Win" : "Loss";
-    const pnl = (exitPrice - entryPrice) * qty;
-
-    const entry = { date, timeIn, timeOut, symbol, entryPrice, exitPrice, qty, result, pnl };
-
-    const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
-    entries.push(entry);
-    localStorage.setItem('journalEntries', JSON.stringify(entries));
-
-    displayEntries();
-    document.getElementById('entryForm').reset();
-
-    // Hide modal after adding entry
-    modal.style.display = "none";
-}
-
+// Function to display entries
 function displayEntries() {
-    const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
-    const entriesTable = document.getElementById('entriesTable');
-    entriesTable.innerHTML = '';
+    const entriesTableBody = document.querySelector('#entriesTable tbody');
+    entriesTableBody.innerHTML = ''; // Clear existing entries
 
-    entries.forEach(entry => {
-        const entryPrice = isNaN(entry.entryPrice) ? 0 : entry.entryPrice;
-        const exitPrice = isNaN(entry.exitPrice) ? 0 : entry.exitPrice;
-        const pnl = isNaN(entry.pnl) ? 0 : entry.pnl;
-
+    entries.forEach((entry, index) => {
         const row = document.createElement('tr');
+
+        // Create table cells for each entry
         row.innerHTML = `
             <td>${entry.date}</td>
             <td>${entry.timeIn}</td>
             <td>${entry.timeOut}</td>
             <td>${entry.symbol}</td>
-            <td>${entryPrice.toFixed(2)}</td>
-            <td>${exitPrice.toFixed(2)}</td>
+            <td>${entry.entryPrice}</td>
+            <td>${entry.exitPrice}</td>
             <td>${entry.qty}</td>
             <td class="${entry.result === 'Win' ? 'win' : 'loss'}">${entry.result}</td>
-            <td class="${pnl >= 0 ? 'win' : 'loss'}">${pnl.toFixed(2)}</td>
+            <td class="${entry.pl > 0 ? 'win' : 'loss'}">${entry.pl.toFixed(2)}</td>
+            <td>
+                <i class="fas fa-edit" onclick="editEntry(${index})" style="cursor: pointer; margin-right: 10px;"></i>
+                <i class="fas fa-trash-alt" onclick="deleteEntry(${index})" style="cursor: pointer;"></i>
+            </td>
         `;
-        entriesTable.appendChild(row);
+
+        entriesTableBody.appendChild(row);
     });
+}
+
+// Function to delete an entry
+function deleteEntry(index) {
+    if (confirm('Are you sure you want to delete this trade?')) {
+        entries.splice(index, 1); // Remove the entry from the array
+        displayEntries(); // Refresh the table display
+    }
+}
+
+// Function to edit an entry
+function editEntry(index) {
+    const entry = entries[index];
+
+    // Populate form fields with existing entry data
+    document.querySelector('#date').value = entry.date;
+    document.querySelector('#timeIn').value = entry.timeIn;
+    document.querySelector('#timeOut').value = entry.timeOut;
+    document.querySelector('#symbol').value = entry.symbol;
+    document.querySelector('#entryPrice').value = entry.entryPrice;
+    document.querySelector('#exitPrice').value = entry.exitPrice;
+    document.querySelector('#qty').value = entry.qty;
+
+    // Change button to indicate editing
+    document.querySelector('#addEntryButton').textContent = 'Update Trade';
+    document.querySelector('#addEntryButton').onclick = function() {
+        updateEntry(index);
+    };
+
+    // Open modal
+    document.querySelector('.modal').style.display = 'block';
+}
+
+// Function to update an entry
+function updateEntry(index) {
+    const updatedEntry = {
+        date: document.querySelector('#date').value,
+        timeIn: document.querySelector('#timeIn').value,
+        timeOut: document.querySelector('#timeOut').value,
+        symbol: document.querySelector('#symbol').value,
+        entryPrice: parseFloat(document.querySelector('#entryPrice').value),
+        exitPrice: parseFloat(document.querySelector('#exitPrice').value),
+        qty: parseInt(document.querySelector('#qty').value),
+    };
+
+    // Calculate result and P&L
+    updatedEntry.result = updatedEntry.exitPrice - updatedEntry.entryPrice > 0 ? 'Win' : 'Loss';
+    updatedEntry.pl = (updatedEntry.exitPrice - updatedEntry.entryPrice) * updatedEntry.qty;
+
+    entries[index] = updatedEntry; // Update the entry in the array
+    displayEntries(); // Refresh the table display
+
+    // Reset form and modal
+    resetForm();
+}
+
+// Reset the form after submission
+function resetForm() {
+    document.querySelector('#date').value = '';
+    document.querySelector('#timeIn').value = '';
+    document.querySelector('#timeOut').value = '';
+    document.querySelector('#symbol').value = '';
+    document.querySelector('#entryPrice').value = '';
+    document.querySelector('#exitPrice').value = '';
+    document.querySelector('#qty').value = '';
+    document.querySelector('#addEntryButton').textContent = 'Add Trade';
+    document.querySelector('#addEntryButton').onclick = addEntry; // Reset to add
+    document.querySelector('.modal').style.display = 'none'; // Close modal
 }
