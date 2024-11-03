@@ -100,6 +100,11 @@ h1 {
     color: #E0E0E0; /* Light grey text */
 }
 
+input[type="date"],
+input[type="time"] {
+    cursor: pointer; /* Show pointer on hover */
+}
+
 .modal-content input:focus {
     border-color: #BB86FC; /* Purple border on focus */
     box-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
@@ -185,12 +190,3 @@ td.loss {
 tbody td i {
     color: #E0E0E0; /* Icon color */
 }
-
-/* Add this to style.css */
-
-/* Fix for input appearance */
-input[type="date"],
-input[type="time"] {
-    cursor: pointer; /* Show pointer on hover */
-}
-
