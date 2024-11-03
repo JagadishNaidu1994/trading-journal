@@ -58,10 +58,11 @@ h1 {
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     position: relative;
 }
 
+/* Close Button */
 .close-btn {
     position: absolute;
     top: 10px;
@@ -75,44 +76,44 @@ h1 {
     color: #888;
 }
 
-/* Form Styling (only within modal) */
-.journal-entry form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
+/* Form Styling */
+.modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between inputs */
 }
 
-.journal-entry label {
+.modal-content label {
     font-weight: 500;
     color: #555;
 }
 
-.journal-entry input,
-.journal-entry button {
-    padding: 8px;
+.modal-content input,
+.modal-content button {
+    padding: 12px;
     border-radius: 4px;
     border: 1px solid #ccc;
     font-size: 14px;
     outline: none;
-    transition: all 0.3s ease;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-.journal-entry input:focus {
+.modal-content input:focus {
     border-color: #1976D2;
-    box-shadow: 0 0 4px rgba(25, 118, 210, 0.3);
+    box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
 }
 
-.journal-entry button {
-    grid-column: span 2;
+/* Button Styling */
+.modal-content button {
     background-color: #1976D2;
-    color: #fff;
+    color: #ffffff;
     border: none;
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
-.journal-entry button:hover {
+.modal-content button:hover {
     background-color: #1565C0;
 }
 
@@ -120,6 +121,7 @@ h1 {
 #entriesContainer {
     width: 100%;
     max-width: 800px;
+    margin-top: 20px;
 }
 
 #entriesContainer h2 {
@@ -130,10 +132,10 @@ h1 {
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #ffffff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
 }
 
 thead {
@@ -164,21 +166,15 @@ tbody td {
     border-bottom: 1px solid #ddd;
 }
 
-.win {
-    color: #388E3C; /* Material Green for "Win" */
-    font-weight: bold;
-}
-
-.loss {
-    color: #D32F2F; /* Material Red for "Loss" */
-    font-weight: bold;
-}
-
 /* P&L Color-Coding */
-tbody td.win {
+td.win {
     background-color: #e8f5e9;
+    color: #388E3C;
+    font-weight: bold;
 }
 
-tbody td.loss {
+td.loss {
     background-color: #ffebee;
+    color: #D32F2F;
+    font-weight: bold;
 }
