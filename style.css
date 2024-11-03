@@ -7,8 +7,8 @@
 }
 
 body {
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: #121212; /* Dark background */
+    color: #E0E0E0; /* Light grey text */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,13 +17,13 @@ body {
 
 /* Header */
 h1 {
-    color: #1976D2;
+    color: #BB86FC; /* Purple color for header */
     margin-bottom: 20px;
 }
 
 /* Add Trade Button */
 .add-trade-btn {
-    background-color: #1976D2;
+    background-color: #BB86FC; /* Purple button */
     color: #ffffff;
     border: none;
     padding: 10px 20px;
@@ -35,7 +35,7 @@ h1 {
 }
 
 .add-trade-btn:hover {
-    background-color: #1565C0;
+    background-color: #9B66E5; /* Darker purple on hover */
 }
 
 /* Modal Background */
@@ -47,18 +47,18 @@ h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
 }
 
 /* Modal Content */
 .modal-content {
-    background-color: #ffffff;
+    background-color: #1E1E1E; /* Dark grey for modal */
     margin: 10% auto;
     padding: 20px;
     border-radius: 8px;
     width: 90%;
     max-width: 500px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     position: relative;
 }
 
@@ -68,12 +68,12 @@ h1 {
     top: 10px;
     right: 15px;
     font-size: 24px;
-    color: #333;
+    color: #E0E0E0;
     cursor: pointer;
 }
 
 .close-btn:hover {
-    color: #888;
+    color: #BB86FC; /* Change color on hover */
 }
 
 /* Form Styling */
@@ -85,27 +85,29 @@ h1 {
 
 .modal-content label {
     font-weight: 500;
-    color: #555;
+    color: #E0E0E0; /* Light grey for labels */
 }
 
 .modal-content input,
 .modal-content button {
     padding: 12px;
     border-radius: 4px;
-    border: 1px solid #ccc;
+    border: 1px solid #444; /* Dark border */
     font-size: 14px;
     outline: none;
     transition: border 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1E1E1E; /* Dark background for inputs */
+    color: #E0E0E0; /* Light grey text */
 }
 
 .modal-content input:focus {
-    border-color: #1976D2;
-    box-shadow: 0 0 5px rgba(25, 118, 210, 0.5);
+    border-color: #BB86FC; /* Purple border on focus */
+    box-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
 }
 
 /* Button Styling */
 .modal-content button {
-    background-color: #1976D2;
+    background-color: #BB86FC; /* Purple button */
     color: #ffffff;
     border: none;
     cursor: pointer;
@@ -114,7 +116,7 @@ h1 {
 }
 
 .modal-content button:hover {
-    background-color: #1565C0;
+    background-color: #9B66E5; /* Darker purple on hover */
 }
 
 /* Table Styling */
@@ -125,7 +127,7 @@ h1 {
 }
 
 #entriesContainer h2 {
-    color: #333;
+    color: #E0E0E0; /* Light grey for table header */
     margin-bottom: 10px;
 }
 
@@ -134,12 +136,12 @@ table {
     border-collapse: collapse;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    background-color: #1E1E1E; /* Dark background for table */
 }
 
 thead {
-    background-color: #1976D2;
+    background-color: #BB86FC; /* Purple header for table */
     color: #ffffff;
     text-align: left;
 }
@@ -154,27 +156,27 @@ tbody tr {
 }
 
 tbody tr:nth-child(odd) {
-    background-color: #f7f7f7;
+    background-color: #2C2C2C; /* Darker grey for odd rows */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #e3f2fd;
+    background-color: #3C3C3C; /* Medium grey for even rows */
 }
 
 tbody td {
     padding: 12px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #444; /* Dark border for table cells */
 }
 
 /* P&L Color-Coding */
 td.win {
-    background-color: #e8f5e9;
-    color: #388E3C;
+    background-color: #2E7D32; /* Dark green for win */
+    color: #ffffff;
     font-weight: bold;
 }
 
 td.loss {
-    background-color: #ffebee;
-    color: #D32F2F;
+    background-color: #C62828; /* Dark red for loss */
+    color: #ffffff;
     font-weight: bold;
 }
