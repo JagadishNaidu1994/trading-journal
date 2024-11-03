@@ -20,6 +20,39 @@ h1 {
     color: #BB86FC; /* Purple color for header */
     margin-bottom: 20px;
 }
+.page-contents {
+    padding: 20px;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+}
+
+input[type="number"],
+input[type="text"],
+select,
+input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background-color: #1E1E1E; /* Dark background for inputs */
+    color: #E0E0E0; /* Light grey text */
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus,
+input[type="datetime-local"]:focus {
+    border-color: #BB86FC; /* Purple border on focus */
+    box-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
+}
+
+.bg-green-500 {
+    background-color: #4CAF50; /* Customize this color */
+}
 
 /* Add Trade Button */
 .add-trade-btn {
