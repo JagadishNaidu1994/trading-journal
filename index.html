@@ -14,78 +14,67 @@
 
     <!-- Modal for adding/editing trades -->
     <div class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h2>Add New Trade</h2>
-        <div class="page-contents">
-            <div class="form sm:grid-cols-10">
-                <div class="col-span-2 row-start-1 sm:row-auto sm:flex-wrap flex">
-                    <span class="self-center pr-3 min-w-16 sm:pl-1">Market</span>
-                    <select required>
-                        <option value="STOCK">STOCK</option>
-                        <option value="OPTION">OPTION</option>
-                        <option value="OPTION">IPO</option>
-
-                    </select>
-                </div>
-                <div class="col-span-full sm:col-span-3 sm:flex-wrap flex">
-                    <span class="self-center pr-3 min-w-16 block sm:pl-1">Symbol</span>
-                    <input type="text" required oninput="this.value = this.value.toUpperCase()">
-                </div>
-                <div class="col-span-4">
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="flex sm:flex-wrap">
-                            <span class="self-center pr-3 whitespace-nowrap min-w-16 block sm:pl-1">Target</span>
-                            <input type="number" min="0" step="0.00000001" inputmode="decimal" onkeypress="return event.charCode != 45">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Add New Trade</h2>
+            <div class="page-contents">
+                <form class="form">
+                    <div class="grid grid-cols-10 gap-4">
+                        <div class="col-span-2">
+                            <label for="market">Market</label>
+                            <select id="market" required>
+                                <option value="STOCK">STOCK</option>
+                                <option value="OPTION">OPTION</option>
+                                <option value="IPO">IPO</option>
+                            </select>
                         </div>
-                        <div class="flex sm:flex-wrap">
-                            <span class="self-center pr-3 whitespace-nowrap sm:pl-1">Stop-Loss</span>
-                            <input type="number" min="0" step="0.00000001" inputmode="decimal" onkeypress="return event.charCode != 45">
+                        <div class="col-span-3">
+                            <label for="symbol">Symbol</label>
+                            <input type="text" id="symbol" required oninput="this.value = this.value.toUpperCase()">
                         </div>
-                    </div>
-                </div>
-                <div class="sm:col-span-1 row-start-1 sm:row-auto h-[34px] self-end bg-green-500 bg-opacity-20 text-center leading-9 rounded-2xl text-sm text-white">
-                    <a class="h-[34px] cursor-pointer text-white rounded-2xl flex self-end select-none bg-green-500">
-                        <span class="text-center self-center m-auto">LONG</span>
-                    </a>
-                </div>
-                <div class="col-span-full divide-y divide-border divide-solid sm:divide-none">
-                    <div class="row py-2">
-                        <div class="grid grid-cols-9 sm:grid-cols-16 grid-flow-row relative gap-y-1 gap-x-2">
-                           
-                            <div class="col-span-2">
-                                <span class="pl-1 sm:hidden block">Action</span>
-                                <a class="h-[34px] cursor-pointer text-white rounded-2xl flex self-end select-none bg-green-500">
-                                    <span class="text-center self-center m-auto">BUY</span>
-                                </a>
-                            </div>
-                            <div class="col-span-6 flex-wrap">
-                                <span class="pl-1 sm:hidden block">Date/ Time</span>
-                                <input type="datetime-local" required>
-                            </div>
-                            <div class="sm:col-span-2 col-span-3 flex-wrap sm:m-auto">
-                                <span class="pl-1 sm:hidden block">Quantity</span>
-                                <input type="number" inputmode="decimal" min="0" step="0.00000001" required onkeypress="return event.charCode != 45">
-                            </div>
-                            <div class="sm:col-span-3 col-span-3 flex-wrap">
-                                <span class="pl-1 sm:hidden block">Price</span>
-                                <input type="number" inputmode="decimal" min="0" step="0.00000001" required onkeypress="return event.charCode != 45">
-                            </div>
-                            <div class="col-span-2 flex-wrap">
-                                <span class="pl-1 sm:hidden block">Fee</span>
-                                <input type="number" inputmode="decimal" min="0" step="0.00000001">
-                            </div>
+                        <div class="col-span-2">
+                            <label for="target">Target</label>
+                            <input type="number" id="target" min="0" step="0.00000001" required>
+                        </div>
+                        <div class="col-span-2">
+                            <label for="stopLoss">Stop-Loss</label>
+                            <input type="number" id="stopLoss" min="0" step="0.00000001" required>
+                        </div>
+                        <div class="col-span-1 flex items-center">
+                            <button class="h-[34px] bg-green-500 text-white rounded-2xl">LONG</button>
                         </div>
                     </div>
-                </div>
-                <div class="flex">
-                    <button class="font-bold pb-1 mx-auto mt-2">+</button>
-                </div>
+                    <div class="grid grid-cols-10 gap-4">
+                        <div class="col-span-2">
+                            <label for="action">Action</label>
+                            <button class="h-[34px] bg-green-500 text-white rounded-2xl">BUY</button>
+                        </div>
+                        <div class="col-span-4">
+                            <label for="dateTime">Date/Time</label>
+                            <input type="datetime-local" id="dateTime" required>
+                        </div>
+                        <div class="col-span-2">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" min="0" step="0.00000001" required>
+                        </div>
+                        <div class="col-span-2">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" min="0" step="0.00000001" required>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="fee">Fee</label>
+                            <input type="number" id="fee" min="0" step="0.00000001">
+                        </div>
+                        <div>
+                            <button type="button" class="font-bold">+</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-</div>
-
 
     <div id="entriesContainer">
         <h2>Trade History</h2>
