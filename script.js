@@ -1,4 +1,7 @@
-document.getElementById('entryForm').addEventListener('submit', addEntry);
+document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById('entryForm').addEventListener('submit', addEntry);
+    displayEntries();
+});
 
 function addEntry(event) {
     event.preventDefault();
@@ -10,6 +13,11 @@ function addEntry(event) {
     const entryPrice = parseFloat(document.getElementById('entryPrice').value);
     const exitPrice = parseFloat(document.getElementById('exitPrice').value);
     const qty = parseInt(document.getElementById('qty').value);
+
+    if (!date || !timeIn || !timeOut || !symbol || isNaN(entryPrice) || isNaN(exitPrice) || isNaN(qty)) {
+        alert("Please fill in all fields correctly.");
+        return;
+    }
 
     const result = exitPrice > entryPrice ? "Win" : "Loss";
     const pnl = (exitPrice - entryPrice) * qty;
@@ -47,5 +55,3 @@ function displayEntries() {
         entriesTable.appendChild(row);
     });
 }
-
-window.onload = displayEntries;
