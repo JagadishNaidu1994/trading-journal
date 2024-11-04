@@ -3,6 +3,74 @@ document.addEventListener("DOMContentLoaded", () => {
     displayEntries();
 });
 
+
+// Function to handle CSV upload and parsing
+function uploadCSV() {
+    const fileInput = document.getElementById('csvFile');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        alert("Please select a CSV file.");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const csvData = event.target.result;
+        parseCSV(csvData);
+    };
+    reader.readAsText(file);
+}
+
+// Function to parse CSV data and add entries
+function parseCSV(data) {
+    // Split the data by lines
+    const rows = data.split('\n');
+
+    // Assume the first row contains headers
+    rows.shift(); // Remove header row
+
+    const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+
+    rows.forEach(row => {
+        const columns = row.split(',');
+
+        // Check if the row has enough columns (Date, Time In, Time Out, Symbol, Entry Price, Exit Price, Qty)
+        if (columns.length >= 7) {
+            const date = columns[0].trim();
+            const timeIn = columns[1].trim();
+            const timeOut = columns[2].trim();
+            const symbol = columns[3].trim();
+            const entryPrice = parseFloat(columns[4].trim());
+            const exitPrice = parseFloat(columns[5].trim());
+            const qty = parseInt(columns[6].trim());
+
+            if (!date || !timeIn || !timeOut || !symbol || isNaN(entryPrice) || isNaN(exitPrice) || isNaN(qty)) {
+                console.warn("Skipping invalid row:", row);
+                return;
+            }
+
+            // Calculate Result and P&L
+            const result = exitPrice > entryPrice ? "Win" : "Loss";
+            const pnl = (exitPrice - entryPrice) * qty;
+
+            // Create an entry object
+            const entry = { date, timeIn, timeOut, symbol, entryPrice, exitPrice, qty, result, pnl };
+            entries.push(entry);
+        }
+    });
+
+    // Save all entries to localStorage
+    localStorage.setItem('journalEntries', JSON.stringify(entries));
+
+    // Refresh the table display
+    displayEntries();
+}
+
+// Existing code for displayEntries and addEntry functions
+
+
+
 function addEntry(event) {
     event.preventDefault();
 
