@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const status = pnl > 0 ? 'Profit' : 'Loss';
 
         // Calculate Return on Capital (ROC%)
-        const initialCapital = parseFloat(document.getElementById('initialCapital').value) || 0;
+        const initialCapital = parseFloat(document.getElementById('saveInitialCapital').value) || 0;
         const roc = initialCapital > 0 ? (pnl / initialCapital) * 100 : 0;
 
         // Create a new row in the trades table
