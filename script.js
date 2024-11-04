@@ -2,6 +2,22 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('entryForm').addEventListener('submit', addEntry);
     displayEntries();
 });
+function uploadCSV() {
+    const fileInput = document.getElementById('csvFile');
+    const file = fileInput.files[0];
+    
+    if (!file) {
+        alert("Please select a CSV file.");
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const csvData = event.target.result;
+        parseCSV(csvData);  // Make sure parseCSV function exists
+    };
+    reader.readAsText(file);
+}
 
 function addEntry(event) {
     event.preventDefault();
