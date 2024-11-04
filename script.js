@@ -15,16 +15,22 @@ document.addEventListener("DOMContentLoaded", function() {
         const tradeDate = document.getElementById('tradeDate').value;
         const timeIn = document.getElementById('timeIn').value;
         const symbol = document.getElementById('symbol').value;
-        const qty = document.getElementById('qty').value;
-        const entryPrice = document.getElementById('entryPrice').value;
-        const exitPrice = document.getElementById('exitPrice').value;
+        const qty = parseInt(document.getElementById('qty').value);
+        const entryPrice = parseFloat(document.getElementById('entryPrice').value);
+        const exitPrice = parseFloat(document.getElementById('exitPrice').value);
+
+        // Validate input values
+        if (!tradeDate || !timeIn || !symbol || qty <= 0 || entryPrice <= 0 || exitPrice <= 0) {
+            alert("Please fill all fields correctly.");
+            return;
+        }
 
         // Calculate P&L and Status
         const pnl = (exitPrice - entryPrice) * qty;
         const status = pnl > 0 ? 'Profit' : 'Loss';
 
         // Calculate Return on Capital (ROC%)
-        const initialCapital = parseFloat(document.getElementById('saveInitialCapital').value) || 0;
+        const initialCapital = parseFloat(document.getElementById('initialCapital').value) || 0;
         const roc = initialCapital > 0 ? (pnl / initialCapital) * 100 : 0;
 
         // Create a new row in the trades table
@@ -33,10 +39,10 @@ document.addEventListener("DOMContentLoaded", function() {
         newRow.innerHTML = `
             <td>${tradeDate}</td>
             <td>${timeIn}</td>
-            <td><span class="${status === 'Profit' ? 'icon-profit' : 'icon-loss'}"></span>${status}</td>
+            <td>${status}</td>
             <td>${qty}</td>
-            <td>${entryPrice}</td>
-            <td>${exitPrice}</td>
+            <td>${entryPrice.toFixed(2)}</td>
+            <td>${exitPrice.toFixed(2)}</td>
             <td style="color: ${pnl > 0 ? 'green' : 'red'}">${pnl.toFixed(2)}</td>
             <td>${roc.toFixed(2)}%</td>
         `;
@@ -46,35 +52,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Close the modal
         closeModal();
-    }
-
-    // Function to sync data from CSV (if you still want to keep this functionality)
-    async function syncData() {
-        const response = await fetch('https://drive.google.com/uc?export=download&id=1LPYXdjjyv3Cf-wRmGQBnfDbcdnASKBrw');
-        if (!response.ok) {
-            console.error('Error fetching CSV:', response.statusText);
-            return;
-        }
-
-        const data = await response.text();
-        const rows = data.split('\n');
-        const table = document.getElementById('tradesTable').getElementsByTagName('tbody')[0];
-        table.innerHTML = ''; // Clear the table before adding new rows
-
-        rows.forEach((row) => {
-            const cols = row.split(',');
-            const newRow = table.insertRow();
-            newRow.innerHTML = `
-                <td>${cols[0]}</td>
-                <td>${cols[1]}</td>
-                <td><span class="${cols[2] === 'Profit' ? 'icon-profit' : 'icon-loss'}"></span>${cols[2]}</td>
-                <td>${cols[3]}</td>
-                <td>${cols[4]}</td>
-                <td>${cols[5]}</td>
-                <td style="color: ${parseFloat(cols[6]) > 0 ? 'green' : 'red'}">${parseFloat(cols[6]).toFixed(2)}</td>
-                <td>${parseFloat(cols[7]).toFixed(2)}%</td>
-            `;
-        });
     }
 
     // Add event listener for the Add Trade button
