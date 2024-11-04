@@ -3,78 +3,9 @@ document.addEventListener("DOMContentLoaded", () => {
     displayEntries();
 });
 
-
-// Function to handle CSV upload and parsing
-function uploadCSV() {
-    const fileInput = document.getElementById('csvFile');
-    const file = fileInput.files[0];
-    
-    if (!file) {
-        alert("Please select a CSV file.");
-        return;
-    }
-
-    const reader = new FileReader();
-    reader.onload = function(event) {
-        const csvData = event.target.result;
-        parseCSV(csvData);
-    };
-    reader.readAsText(file);
-}
-
-// Function to parse CSV data and add entries
-function parseCSV(data) {
-    // Split the data by lines
-    const rows = data.split('\n');
-
-    // Assume the first row contains headers
-    rows.shift(); // Remove header row
-
-    const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
-
-    rows.forEach(row => {
-        const columns = row.split(',');
-
-        // Check if the row has enough columns (Date, Time In, Time Out, Symbol, Entry Price, Exit Price, Qty)
-        if (columns.length >= 7) {
-            const date = columns[0].trim();
-            const timeIn = columns[1].trim();
-            const timeOut = columns[2].trim();
-            const symbol = columns[3].trim();
-            const entryPrice = parseFloat(columns[4].trim());
-            const exitPrice = parseFloat(columns[5].trim());
-            const qty = parseInt(columns[6].trim());
-
-            if (!date || !timeIn || !timeOut || !symbol || isNaN(entryPrice) || isNaN(exitPrice) || isNaN(qty)) {
-                console.warn("Skipping invalid row:", row);
-                return;
-            }
-
-            // Calculate Result and P&L
-            const result = exitPrice > entryPrice ? "Win" : "Loss";
-            const pnl = (exitPrice - entryPrice) * qty;
-
-            // Create an entry object
-            const entry = { date, timeIn, timeOut, symbol, entryPrice, exitPrice, qty, result, pnl };
-            entries.push(entry);
-        }
-    });
-
-    // Save all entries to localStorage
-    localStorage.setItem('journalEntries', JSON.stringify(entries));
-
-    // Refresh the table display
-    displayEntries();
-}
-
-// Existing code for displayEntries and addEntry functions
-
-
-
 function addEntry(event) {
     event.preventDefault();
 
-    // Retrieve form values
     const date = document.getElementById('date').value;
     const timeIn = document.getElementById('timeIn').value;
     const timeOut = document.getElementById('timeOut').value;
@@ -83,20 +14,19 @@ function addEntry(event) {
     const exitPrice = parseFloat(document.getElementById('exitPrice').value);
     const qty = parseInt(document.getElementById('qty').value);
 
-    // Check if entryPrice, exitPrice, or qty are NaN or missing
     if (isNaN(entryPrice) || isNaN(exitPrice) || isNaN(qty) || !date || !timeIn || !timeOut || !symbol) {
         alert("Please fill in all fields correctly.");
         return;
     }
 
-    // Calculate Result and P&L
-    const result = exitPrice > entryPrice ? "Win" : "Loss";
+    const status = exitPrice > entryPrice ? "Profit" : "Loss";
     const pnl = (exitPrice - entryPrice) * qty;
+    const holdTime = calculateHoldTime(timeIn, timeOut);
 
-    // Create an entry object
-    const entry = { date, timeIn, timeOut, symbol, entryPrice, exitPrice, qty, result, pnl };
+    const initialCapital = parseFloat(document.getElementById('initialCapital').value) || 1;
+    const roc = ((pnl / initialCapital) * 100).toFixed(2);
 
-    // Save the entry to localStorage
+    const entry = { date, timeIn, timeOut, symbol, status, qty, entryPrice, exitPrice, holdTime, pnl, roc };
     const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
     entries.push(entry);
     localStorage.setItem('journalEntries', JSON.stringify(entries));
@@ -110,25 +40,59 @@ function displayEntries() {
     const entriesTable = document.getElementById('entriesTable');
     entriesTable.innerHTML = '';
 
-    entries.forEach(entry => {
-        // Check if entryPrice, exitPrice, and pnl are valid numbers
-        const entryPrice = isNaN(entry.entryPrice) ? 0 : entry.entryPrice;
-        const exitPrice = isNaN(entry.exitPrice) ? 0 : entry.exitPrice;
-        const pnl = isNaN(entry.pnl) ? 0 : entry.pnl;
-
+    entries.forEach((entry, index) => {
         const row = document.createElement('tr');
+
         row.innerHTML = `
             <td>${entry.date}</td>
             <td>${entry.timeIn}</td>
             <td>${entry.timeOut}</td>
             <td>${entry.symbol}</td>
-            <td>${entryPrice.toFixed(2)}</td>
-            <td>${exitPrice.toFixed(2)}</td>
+            <td class="${entry.status === 'Profit' ? 'profit-icon' : 'loss-icon'}">${entry.status === 'Profit' ? '✔️' : '❌'}</td>
             <td>${entry.qty}</td>
-            <td class="${entry.result === 'Win' ? 'win' : 'loss'}">${entry.result}</td>
-            <td class="${pnl >= 0 ? 'win' : 'loss'}">${pnl.toFixed(2)}</td>
+            <td>${entry.entryPrice.toFixed(2)}</td>
+            <td>${entry.exitPrice.toFixed(2)}</td>
+            <td>${entry.holdTime}</td>
+            <td class="${entry.pnl >= 0 ? 'win' : 'loss'}">${entry.pnl.toFixed(2)}</td>
+            <td>${entry.roc}%</td>
+            <td>${entry.tags || ''}</td>
+            <td>
+                <button onclick="editEntry(${index})">Edit</button>
+                <button onclick="deleteEntry(${index})">Delete</button>
+            </td>
         `;
 
         entriesTable.appendChild(row);
     });
+}
+
+function calculateHoldTime(timeIn, timeOut) {
+    const inTime = new Date(`1970-01-01T${timeIn}:00`);
+    const outTime = new Date(`1970-01-01T${timeOut}:00`);
+    const diff = (outTime - inTime) / (1000 * 60); // in minutes
+    return `${Math.floor(diff / 60)}h ${diff % 60}m`;
+}
+
+function deleteEntry(index) {
+    const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+    entries.splice(index, 1);
+    localStorage.setItem('journalEntries', JSON.stringify(entries));
+    displayEntries();
+}
+
+function editEntry(index) {
+    const entries = JSON.parse(localStorage.getItem('journalEntries')) || [];
+    const entry = entries[index];
+
+    document.getElementById('date').value = entry.date;
+    document.getElementById('timeIn').value = entry.timeIn;
+    document.getElementById('timeOut').value = entry.timeOut;
+    document.getElementById('symbol').value = entry.symbol;
+    document.getElementById('entryPrice').value = entry.entryPrice;
+    document.getElementById('exitPrice').value = entry.exitPrice;
+    document.getElementById('qty').value = entry.qty;
+
+    entries.splice(index, 1); // Remove the old entry
+    localStorage.setItem('journalEntries', JSON.stringify(entries));
+    displayEntries();
 }
