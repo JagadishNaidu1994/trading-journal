@@ -68,7 +68,6 @@ function editEntry(index) {
     document.getElementById('editIndex').value = index;
     document.getElementById('editDate').value = entry.date;
     document.getElementById('editTimeIn').value = entry.timeIn;
-    document.getElementById('editTimeOut').value = entry.timeOut;
     document.getElementById('editSymbol').value = entry.symbol;
     document.getElementById('editEntryPrice').value = entry.entryPrice;
     document.getElementById('editExitPrice').value = entry.exitPrice;
@@ -108,14 +107,13 @@ function parseCSVAndAddEntries(csvData) {
     lines.forEach((line, index) => {
         if (index === 0) return; // Skip header row
 
-        const [date, timeIn, timeOut, symbol, qty, entryPrice, exitPrice] = line.split(',');
+        const [date, timeIn, symbol, qty, entryPrice, exitPrice] = line.split(',');
 
         // Validate data to ensure all required fields are present
-        if (date && timeIn && timeOut && symbol && qty && entryPrice && exitPrice) {
+        if (date && timeIn && symbol && qty && entryPrice && exitPrice) {
             const newEntry = {
                 date: date.trim(),
                 timeIn: timeIn.trim(),
-                timeOut: timeOut.trim(),
                 symbol: symbol.trim(),
                 qty: parseFloat(qty.trim()),
                 entryPrice: parseFloat(entryPrice.trim()),
@@ -147,7 +145,6 @@ function displayEntries() {
         row.innerHTML = `
             <td>${entry.date}</td>
             <td>${entry.timeIn}</td>
-            <td>${entry.timeOut}</td>
             <td>${entry.symbol}</td>
             <td>${result}</td>
             <td>${entry.qty}</td>
