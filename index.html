@@ -7,6 +7,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<div class="journal-entry">
+    <!-- Existing form code... -->
+    <form id="entryForm">
+        <!-- Form fields here... -->
+        <button type="submit">Add Entry</button>
+    </form>
+</div>
+
+<!-- File upload section for CSV -->
+<div class="csv-upload">
+    <label for="csvFile">Upload CSV File:</label>
+    <input type="file" id="csvFile" accept=".csv">
+    <button onclick="uploadCSV()">Upload and Add Entries</button>
+</div>
+
+    
     <h1>Trading Journal (Debug)</h1>
     <div class="journal-entry">
         <form id="entryForm">
