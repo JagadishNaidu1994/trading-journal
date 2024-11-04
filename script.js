@@ -152,8 +152,8 @@ function displayEntries() {
             <td>${entry.exitPrice}</td>
             <td>${entry.timeOut - entry.timeIn} hrs</td>
             <td style="color: ${pnlColor}">${pnl.toFixed(2)}</td>
-            <td>—</td>
-            <td>—</td>
+            // <td>—</td>
+            // <td>—</td>
             <td>
                 <button onclick="editEntry(${index})">Edit</button>
                 <button onclick="deleteEntry(${index})">Delete</button>
