@@ -1,5 +1,5 @@
 // Define your CSV URL here
-const csvUrl = "https://raw.githubusercontent.com/username/repository/main/filename.csv";
+const csvUrl = "https://raw.githubusercontent.com/JagadishNaidu1994/trading-journal/refs/heads/main/trades.csv";
 
 // Function to sync data from online CSV
 async function syncData() {
