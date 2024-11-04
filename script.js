@@ -2,6 +2,9 @@
 function openModal() {
     document.getElementById('addTradeModal').style.display = 'block';
 }
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('addTradeButton').addEventListener('click', openModal);
+});
 
 // Function to close the modal
 function closeModal() {
