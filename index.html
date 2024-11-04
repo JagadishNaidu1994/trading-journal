@@ -3,28 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trading Journal (Debug)</title>
+    <title>Trading Journal</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Trading Journal</h1>
 
-<div class="journal-entry">
-    <!-- Existing form code... -->
-    <form id="entryForm">
-        <!-- Form fields here... -->
-        <button type="submit">Add Entry</button>
-    </form>
-</div>
-
-<!-- File upload section for CSV -->
-<div class="csv-upload">
-    <label for="csvFile">Upload CSV File:</label>
-    <input type="file" id="csvFile" accept=".csv">
-    <button onclick="uploadCSV()">Upload and Add Entries</button>
-</div>
-
-    
-    <h1>Trading Journal (Debug)</h1>
     <div class="journal-entry">
         <form id="entryForm">
             <label for="date">Date:</label>
@@ -51,7 +35,20 @@
             <button type="submit">Add Entry</button>
         </form>
     </div>
-    
+
+    <!-- Initial Capital Input -->
+    <div class="initial-capital">
+        <label for="initialCapital">Initial Capital:</label>
+        <input type="number" id="initialCapital" step="0.01" placeholder="Enter your initial capital">
+    </div>
+
+    <!-- File upload section for CSV -->
+    <div class="csv-upload">
+        <label for="csvFile">Upload CSV File:</label>
+        <input type="file" id="csvFile" accept=".csv">
+        <button onclick="uploadCSV()">Upload and Add Entries</button>
+    </div>
+
     <div id="entriesContainer">
         <h2>Trades Table</h2>
         <table>
@@ -61,11 +58,15 @@
                     <th>Time In</th>
                     <th>Time Out</th>
                     <th>Symbol</th>
-                    <th>Entry Price</th>
-                    <th>Exit Price</th>
-                    <th>Quantity</th>
-                    <th>Result</th>
+                    <th>Status</th>
+                    <th>Qty</th>
+                    <th>Entry</th>
+                    <th>Exit</th>
+                    <th>Hold Time</th>
                     <th>P&L</th>
+                    <th>ROC %</th>
+                    <th>Tags</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="entriesTable">
@@ -73,7 +74,7 @@
             </tbody>
         </table>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
