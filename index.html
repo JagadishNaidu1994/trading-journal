@@ -4,35 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trading Journal</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Trading Journal</h1>
-<button id="syncButton">Sync Data</button>
+    <div class="container">
+        <h1>Trading Journal</h1>
+        <div class="initial-capital">
+            <label for="initialCapitalInput">Initial Capital:</label>
+            <input type="text" id="initialCapitalInput" placeholder="Enter your initial capital" />
+            <button id="saveCapitalButton" onclick="saveInitialCapital()">Save</button>
+            <button id="editCapitalButton" style="display: none;" onclick="editInitialCapital()">Edit</button>
+            <input type="hidden" id="initialCapital" value="0" />
+        </div>
+        <button id="addTradeButton" class="btn" onclick="showAddTradeModal()">+ Add Trade</button>
+        <button id="uploadCSVButton" class="btn" onclick="uploadCSV()">Upload CSV</button>
+        <button id="syncDataButton" class="btn" onclick="syncData()">Sync Data</button>
 
-    <div class="csv-upload">
-    <label for="csvFile">Upload Trades CSV:</label>
-    <input type="file" id="csvFile" accept=".csv">
-    <button onclick="uploadCSV()">Upload</button>
-</div>
-
-<label for="initialCapitalInput">Initial Capital:</label>
-<input type="number" id="initialCapitalInput" placeholder="Enter your capital" step="0.01">
-<input type="hidden" id="initialCapital"> <!-- This hidden input will store the capital -->
-<button id="saveCapitalButton">Save Capital</button>
-<button id="editCapitalButton" style="display:none;" onclick="editInitialCapital()">Edit Capital</button>
-
-<br>
-    <!-- Add Trade Button -->
-    <button id="addTradeButton" class="material-button">+ Add Trade</button>
-
-    <!-- Initial Capital Input -->
-
-
-
-    <div id="entriesContainer">
-        <h2>Trades Table</h2>
-        <table class="material-table">
+        <table id="tradesTable">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -44,80 +33,40 @@
                     <th>Exit</th>
                     <th>P&L</th>
                     <th>ROC %</th>
-                    <th>Tags</th>
-                    <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="entriesTable">
-                <!-- Entries will be dynamically added here -->
-            </tbody>
+            <tbody></tbody>
         </table>
     </div>
 
-    <!-- Edit Trade Modal -->
-    <div id="editTradeModal" class="modal">
+    <!-- Add Trade Modal -->
+    <div id="addTradeModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('editTradeModal')">&times;</span>
-            <h2>Edit Trade</h2>
-            <form id="editTradeForm">
-                <!-- Form fields similar to add form, populated dynamically -->
-                <input type="hidden" id="editIndex">
-                <label>Date:</label>
-                <input type="date" id="editDate" required>
-                <label>Time In:</label>
-                <input type="time" id="editTimeIn" required>
-                <label>Symbol:</label>
-                <input type="text" id="editSymbol" required>
-                <label>Entry Price:</label>
-                <input type="number" id="editEntryPrice" step="0.01" required>
-                <label>Exit Price:</label>
-                <input type="number" id="editExitPrice" step="0.01" required>
-                <label>Quantity:</label>
-                <input type="number" id="editQty" required>
-                <button type="submit" class="material-button">Save Changes</button>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add Trade</h2>
+            <form id="addTradeForm" onsubmit="addEntry(event)">
+                <label for="tradeDate">Date:</label>
+                <input type="date" id="tradeDate" required>
+
+                <label for="timeIn">Time In:</label>
+                <input type="time" id="timeIn" required>
+
+                <label for="symbol">Symbol:</label>
+                <input type="text" id="symbol" placeholder="e.g., AAPL" required>
+
+                <label for="qty">Quantity:</label>
+                <input type="number" id="qty" placeholder="Enter quantity" required>
+
+                <label for="entryPrice">Entry Price:</label>
+                <input type="number" id="entryPrice" placeholder="Enter entry price" step="0.01" required>
+
+                <label for="exitPrice">Exit Price:</label>
+                <input type="number" id="exitPrice" placeholder="Enter exit price" step="0.01" required>
+
+                <button type="submit">Add Trade</button>
             </form>
         </div>
     </div>
-
-    <!-- Add Trade Modal -->
-    <!-- Add Trade Modal -->
-<div id="addTradeModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Add Trade</h2>
-        <form id="addTradeForm" onsubmit="addEntry(); return false;">
-            <div class="form-group">
-                <label for="tradeDate">Date:</label>
-                <input type="date" id="tradeDate" required>
-            </div>
-            <div class="form-group">
-                <label for="timeIn">Time In:</label>
-                <input type="time" id="timeIn" required>
-            </div>
-            <div class="form-group">
-                <label for="symbol">Symbol:</label>
-                <input type="text" id="symbol" required>
-            </div>
-            <div class="form-group">
-                <label for="qty">Quantity:</label>
-                <input type="number" id="qty" min="1" required>
-            </div>
-            <div class="form-group">
-                <label for="entryPrice">Entry Price:</label>
-                <input type="number" id="entryPrice" step="0.01" required>
-            </div>
-            <div class="form-group">
-                <label for="exitPrice">Exit Price:</label>
-                <input type="number" id="exitPrice" step="0.01" required>
-            </div>
-            <div class="form-buttons">
-                <button type="submit">Add Trade</button>
-                <button type="button" class="cancel-button" onclick="closeModal()">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-
 
     <script src="script.js"></script>
 </body>
