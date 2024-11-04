@@ -8,7 +8,14 @@
 </head>
 <body>
     <h1>Trading Journal</h1>
+    
+    <div class="csv-upload">
+    <label for="csvFile">Upload Trades CSV:</label>
+    <input type="file" id="csvFile" accept=".csv">
+    <button onclick="uploadCSV()">Upload</button>
+</div>
 
+    
     <!-- Add Trade Button -->
     <button id="addTradeBtn" class="material-button">+ Add Trade</button>
 
