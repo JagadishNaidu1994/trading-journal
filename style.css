@@ -41,7 +41,7 @@ input[type="text"],
 input[type="number"],
 input[type="date"],
 input[type="time"] {
-    width: 100%; /* Take full width of parent div */
+    width: 80%; /* Take full width of parent div */
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
