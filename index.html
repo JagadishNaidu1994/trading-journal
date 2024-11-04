@@ -9,20 +9,24 @@
 <body>
     <div class="container">
         <h1>Trading Journal</h1>
-        
-        <!-- Theme Toggle -->
-        <label class="theme-switch">
-            <input type="checkbox" id="themeToggle">
-            <span class="slider"></span>
-        </label>
+
+        <!-- Theme Toggle Switch -->
+        <div class="theme-toggle-container">
+            <label class="theme-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+            <span>Toggle Theme</span>
+        </div>
 
         <!-- Initial Capital Section -->
         <div class="initial-capital">
             <h2>Initial Capital</h2>
             <input type="number" id="initialCapital" placeholder="Enter initial capital" />
-            <button class="btn" onclick="saveInitialCapital()">Save Capital</button>
+            <button id="saveCapitalBtn" class="btn" onclick="saveInitialCapital()">Save Capital</button>
+            <button id="editCapitalBtn" class="btn hidden" onclick="editInitialCapital()">Edit</button>
         </div>
-        
+
         <!-- Add Trade Button -->
         <button id="openAddTradeModal" class="btn">+ Add Trade</button>
 
