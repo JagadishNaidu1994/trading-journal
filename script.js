@@ -95,12 +95,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Save initial capital
-    window.saveInitialCapital = function () {
-        const initialCapital = document.getElementById('initialCapitalInput').value;
-        document.getElementById('initialCapital').value = initialCapital; // Save capital value
-        document.getElementById('initialCapitalInput').disabled = true; // Disable input
-        document.getElementById('editCapitalButton').style.display = 'inline'; // Show edit button
-    }
+// Save initial capital
+window.saveInitialCapital = function () {
+    const initialCapitalInput = document.getElementById('initialCapitalInput');
+    const initialCapital = initialCapitalInput.value; // Get the value from the input
+    document.getElementById('initialCapital').value = initialCapital; // Set the hidden input value
+    initialCapitalInput.disabled = true; // Disable the input field
+    document.getElementById('editCapitalButton').style.display = 'inline'; // Show the edit button
+}
+
 
     // Add event listeners for buttons
     document.getElementById('addTradeButton').addEventListener('click', openModal);
