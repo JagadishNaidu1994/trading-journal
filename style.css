@@ -2,6 +2,36 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f0f2f5;
 }
+.initial-capital {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.initial-capital input {
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.initial-capital button {
+    background-color: #6200ea;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.initial-capital button:hover {
+    background-color: #3700b3;
+}
+
+.initial-capital input[readonly] {
+    background-color: #f0f2f5;
+    color: #555;
+}
 
 h1 {
     color: #333;
