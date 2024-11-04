@@ -5,12 +5,12 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Function to close the modal
-    function closeModal() {
+    window.closeModal = function() { // Make the function accessible globally
         document.getElementById('addTradeModal').style.display = 'none';
     }
 
     // Function to add a trade entry
-    function addEntry() {
+    window.addEntry = function() { // Make the function accessible globally
         // Get input values
         const tradeDate = document.getElementById('tradeDate').value;
         const timeIn = document.getElementById('timeIn').value;
