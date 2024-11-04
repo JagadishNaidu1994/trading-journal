@@ -138,3 +138,43 @@ h2 {
 .modal-content button:hover {
     background-color: #1976D2; /* Darker button on hover */
 }
+
+.theme-switch {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.theme-switch input {
+    display: none; /* Hide the default checkbox */
+}
+
+.slider {
+    position: relative;
+    width: 60px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 34px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+input:checked + .slider {
+    background-color: #4CAF50; /* Color when toggled */
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px); /* Move the circle */
+}
