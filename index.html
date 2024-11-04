@@ -13,10 +13,13 @@
     <button id="addTradeBtn" class="material-button">+ Add Trade</button>
 
     <!-- Initial Capital Input -->
-    <div class="initial-capital">
-        <label for="initialCapital">Initial Capital:</label>
-        <input type="number" id="initialCapital" step="0.01" placeholder="Enter your initial capital">
-    </div>
+<div class="initial-capital">
+    <label for="initialCapital">Initial Capital:</label>
+    <input type="number" id="initialCapital" step="0.01" placeholder="Enter your initial capital">
+    <button id="saveCapitalBtn" onclick="saveInitialCapital()">Save</button>
+    <button id="editCapitalBtn" onclick="editInitialCapital()" style="display: none;">Edit</button>
+</div>
+
 
     <div id="entriesContainer">
         <h2>Trades Table</h2>
