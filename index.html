@@ -79,27 +79,44 @@
     </div>
 
     <!-- Add Trade Modal -->
-    <div id="addTradeModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('addTradeModal')">&times;</span>
-            <h2>Add Trade</h2>
-            <form id="addTradeForm">
-                <label>Date:</label>
-                <input type="date" id="date" required>
-                <label>Time In:</label>
+    <!-- Add Trade Modal -->
+<div id="addTradeModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Add Trade</h2>
+        <form id="addTradeForm" onsubmit="addEntry(); return false;">
+            <div class="form-group">
+                <label for="tradeDate">Date:</label>
+                <input type="date" id="tradeDate" required>
+            </div>
+            <div class="form-group">
+                <label for="timeIn">Time In:</label>
                 <input type="time" id="timeIn" required>
-                <label>Symbol:</label>
+            </div>
+            <div class="form-group">
+                <label for="symbol">Symbol:</label>
                 <input type="text" id="symbol" required>
-                <label>Entry Price:</label>
+            </div>
+            <div class="form-group">
+                <label for="qty">Quantity:</label>
+                <input type="number" id="qty" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="entryPrice">Entry Price:</label>
                 <input type="number" id="entryPrice" step="0.01" required>
-                <label>Exit Price:</label>
+            </div>
+            <div class="form-group">
+                <label for="exitPrice">Exit Price:</label>
                 <input type="number" id="exitPrice" step="0.01" required>
-                <label>Quantity:</label>
-                <input type="number" id="qty" required>
-                <button type="submit" class="material-button">Add Trade</button>
-            </form>
-        </div>
+            </div>
+            <div class="form-buttons">
+                <button type="submit">Add Trade</button>
+                <button type="button" class="cancel-button" onclick="closeModal()">Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
+
 
     <script src="script.js"></script>
 </body>
