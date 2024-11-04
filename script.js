@@ -15,9 +15,22 @@ function closeModal() {
 
 // Save Initial Capital
 function saveInitialCapital() {
-    const capital = document.getElementById('initialCapital').value;
+    const capitalInput = document.getElementById('initialCapital');
+    const capital = capitalInput.value;
     localStorage.setItem('initialCapital', capital);
     alert(`Initial capital saved: ${capital}`);
+
+    // Toggle Save/Edit buttons
+    capitalInput.disabled = true;
+    document.getElementById('saveCapitalBtn').classList.add('hidden');
+    document.getElementById('editCapitalBtn').classList.remove('hidden');
+}
+
+// Edit Initial Capital
+function editInitialCapital() {
+    document.getElementById('initialCapital').disabled = false;
+    document.getElementById('saveCapitalBtn').classList.remove('hidden');
+    document.getElementById('editCapitalBtn').classList.add('hidden');
 }
 
 // Add Trade
@@ -52,11 +65,17 @@ document.getElementById('themeToggle').addEventListener('change', toggleTheme);
 document.getElementById('openAddTradeModal').addEventListener('click', openModal);
 document.getElementById('closeModalBtn').addEventListener('click', closeModal);
 
-// Apply saved theme
+// Apply saved theme and capital
 document.addEventListener('DOMContentLoaded', () => {
-    const theme = localStorage.getItem('theme');
-    if (theme === 'dark') {
-        document.body.classList.add('dark-theme');
-        document.getElementById('themeToggle').checked = true;
+    const theme = localStorage.getItem('theme') || 'light';
+    document.body.classList.toggle('dark-theme', theme === 'dark');
+    document.getElementById('themeToggle').checked = theme === 'dark';
+
+    const capital = localStorage.getItem('initialCapital');
+    if (capital) {
+        document.getElementById('initialCapital').value = capital;
+        document.getElementById('initialCapital').disabled = true;
+        document.getElementById('saveCapitalBtn').classList.add('hidden');
+        document.getElementById('editCapitalBtn').classList.remove('hidden');
     }
 });
