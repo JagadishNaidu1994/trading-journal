@@ -27,11 +27,21 @@ label {
     margin: 10px 0 5px;
 }
 
+.input-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.input-group > div {
+    flex: 1 1 48%; /* Adjust to fit two columns with some gap */
+}
+
 input[type="text"],
 input[type="number"],
 input[type="date"],
 input[type="time"] {
-    width: 100%;
+    width: 100%; /* Take full width of parent div */
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
