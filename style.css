@@ -1,141 +1,55 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-}
-
 body {
-    background-color: #121212; /* Dark background */
-    color: #E0E0E0; /* Light grey text */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-/* Header */
-h1 {
-    color: #BB86FC; /* Purple color for header */
-    margin-bottom: 20px;
-}
-
-/* Modal Background */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Darker overlay */
-}
-
-/* Modal Content */
-.modal-content {
-    background-color: #1E1E1E; /* Dark grey for modal */
-    margin: 10% auto;
-    padding: 20px;
-    border-radius: 8px;
-    width: 90%; /* Set to 90% of the viewport width */
-    max-width: 600px; /* Maximum width for larger screens */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    position: relative;
-}
-
-/* Close Button */
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
-    color: #E0E0E0;
-    cursor: pointer;
-}
-
-.close-btn:hover {
-    color: #BB86FC; /* Change color on hover */
-}
-
-/* Form Styling */
-.form {
-    display: grid;
-    grid-template-columns: repeat(10, 1fr);
-    gap: 10px; /* Space between inputs */
-}
-
-input[type="number"],
-input[type="text"],
-select,
-input[type="datetime-local"] {
-    width: 100%;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #444;
-    background-color: #1E1E1E; /* Dark background for inputs */
-    color: #E0E0E0; /* Light grey text */
-}
-
-input[type="number"]:focus,
-input[type="text"]:focus,
-select:focus,
-input[type="datetime-local"]:focus {
-    border-color: #BB86FC; /* Purple border on focus */
-    box-shadow: 0 0 5px rgba(187, 134, 252, 0.5);
-}
-
-/* Add Trade Button */
-.add-trade-btn {
-    background-color: #BB86FC; /* Purple button */
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-bottom: 20px;
-}
-
-.add-trade-btn:hover {
-    background-color: #9B66E5; /* Darker purple on hover */
-}
-
-/* Table Styling */
-#entriesContainer {
-    width: 100%;
+    font-family: Arial, sans-serif;
     max-width: 800px;
-    margin-top: 20px;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.journal-entry, #entriesContainer {
+    margin: 20px 0;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #1E1E1E; /* Dark background for table */
+    margin-top: 20px;
 }
 
-thead {
-    background-color: #BB86FC; /* Purple header for table */
-    color: #ffffff;
-    text-align: left;
+table, th, td {
+    border: 1px solid #ddd;
 }
 
-tbody tr:nth-child(odd) {
-    background-color: #2C2C2C; /* Darker grey for odd rows */
+th, td {
+    padding: 8px;
+    text-align: center;
 }
 
-tbody tr:nth-child(even) {
-    background-color: #3C3C3C; /* Medium grey for even rows */
+.win {
+    color: green;
 }
 
-/* Additional styles */
-.grid {
-    display: grid;
-}
-
-.flex {
-    display: flex;
-    align-items: center;
+.loss {
+    color: red;
 }
