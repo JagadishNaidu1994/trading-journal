@@ -71,50 +71,21 @@ window.uploadCSV = function () {
     fileInput.accept = '.csv';
     fileInput.onchange = (event) => {
         const file = event.target.files[0];
-        if (!file) {
-            alert("No file selected.");
-            return; // User canceled the file selection
-        }
         const reader = new FileReader();
         reader.onload = (e) => {
-            const text = e.target.result;
-            const rows = text.split('\n').map(row => row.split(','));
-            const table = document.getElementById('tradesTable').getElementsByTagName('tbody')[0];
-
-            // Clear existing table rows before adding new data
-            while (table.rows.length > 0) {
-                table.deleteRow(0);
-            }
-
-            rows.forEach((row, index) => {
-                if (index === 0) return; // Skip header row
-                const [date, timeIn, symbol, qty, entryPrice, exitPrice] = row;
-                const qtyNum = parseInt(qty);
-                const entryPriceNum = parseFloat(entryPrice);
-                const exitPriceNum = parseFloat(exitPrice);
-
-                if (!date || !timeIn || !symbol || isNaN(qtyNum) || qtyNum <= 0 || isNaN(entryPriceNum) || entryPriceNum <= 0 || isNaN(exitPriceNum) || exitPriceNum <= 0) {
-                    alert("Invalid data in CSV.");
-                    return;
+            const content = e.target.result;
+            const rows = content.split('\n').map(row => row.split(','));
+            rows.forEach(row => {
+                if (row.length === 6) {
+                    const [date, timeIn, symbol, qty, entryPrice, exitPrice] = row;
+                    document.getElementById('tradeDate').value = date;
+                    document.getElementById('timeIn').value = timeIn;
+                    document.getElementById('symbol').value = symbol;
+                    document.getElementById('qty').value = qty;
+                    document.getElementById('entryPrice').value = entryPrice;
+                    document.getElementById('exitPrice').value = exitPrice;
+                    addEntry(event);
                 }
-
-                const pnl = (exitPriceNum - entryPriceNum) * qtyNum;
-                const status = pnl > 0 ? 'Profit' : 'Loss';
-                const initialCapital = parseFloat(document.getElementById('initialCapital').value) || 0;
-                const roc = initialCapital > 0 ? (pnl / initialCapital) * 100 : 0;
-
-                const newRow = table.insertRow();
-                newRow.innerHTML = `
-                    <td>${date}</td>
-                    <td>${timeIn}</td>
-                    <td>${symbol}</td>
-                    <td>${status}</td>
-                    <td>${qtyNum}</td>
-                    <td>${entryPriceNum.toFixed(2)}</td>
-                    <td>${exitPriceNum.toFixed(2)}</td>
-                    <td style="color: ${pnl > 0 ? 'green' : 'red'}">${pnl.toFixed(2)}</td>
-                    <td>${roc.toFixed(2)}%</td>
-                `;
             });
         };
         reader.readAsText(file);
@@ -122,50 +93,36 @@ window.uploadCSV = function () {
     fileInput.click();
 }
 
-// Function to synchronize data from a remote CSV file
-window.syncData = async function () {
-    const response = await fetch('https://drive.google.com/uc?export=download&id=YOUR_FILE_ID'); // Replace with your file ID
-    if (!response.ok) {
-        alert('Error fetching CSV file');
-        return;
-    }
-    const csvText = await response.text();
-    const rows = csvText.split('\n').map(row => row.split(','));
-    const table = document.getElementById('tradesTable').getElementsByTagName('tbody')[0];
+// Sync Data from a CSV
+window.syncData = function () {
+    fetch('https://drive.google.com/uc?export=download&id=1LPYXdjjyv3Cf-wRmGQBnfDbcdnASKBrw')
+        .then(response => response.text())
+        .then(data => {
+            const rows = data.split('\n').map(row => row.split(','));
+            const table = document.getElementById('tradesTable').getElementsByTagName('tbody')[0];
+            table.innerHTML = ''; // Clear the existing rows
+            rows.forEach(row => {
+                if (row.length === 6) {
+                    const [date, timeIn, symbol, qty, entryPrice, exitPrice] = row;
+                    const pnl = (exitPrice - entryPrice) * qty;
+                    const status = pnl > 0 ? 'Profit' : 'Loss';
+                    const initialCapital = parseFloat(document.getElementById('initialCapital').value) || 0;
+                    const roc = initialCapital > 0 ? (pnl / initialCapital) * 100 : 0;
 
-    // Clear existing table rows before adding new data
-    while (table.rows.length > 0) {
-        table.deleteRow(0);
-    }
-
-    rows.forEach((row, index) => {
-        if (index === 0) return; // Skip header row
-        const [date, timeIn, symbol, qty, entryPrice, exitPrice] = row;
-        const qtyNum = parseInt(qty);
-        const entryPriceNum = parseFloat(entryPrice);
-        const exitPriceNum = parseFloat(exitPrice);
-
-        if (!date || !timeIn || !symbol || isNaN(qtyNum) || qtyNum <= 0 || isNaN(entryPriceNum) || entryPriceNum <= 0 || isNaN(exitPriceNum) || exitPriceNum <= 0) {
-            alert("Invalid data in CSV.");
-            return;
-        }
-
-        const pnl = (exitPriceNum - entryPriceNum) * qtyNum;
-        const status = pnl > 0 ? 'Profit' : 'Loss';
-        const initialCapital = parseFloat(document.getElementById('initialCapital').value) || 0;
-        const roc = initialCapital > 0 ? (pnl / initialCapital) * 100 : 0;
-
-        const newRow = table.insertRow();
-        newRow.innerHTML = `
-            <td>${date}</td>
-            <td>${timeIn}</td>
-            <td>${symbol}</td>
-            <td>${status}</td>
-            <td>${qtyNum}</td>
-            <td>${entryPriceNum.toFixed(2)}</td>
-            <td>${exitPriceNum.toFixed(2)}</td>
-            <td style="color: ${pnl > 0 ? 'green' : 'red'}">${pnl.toFixed(2)}</td>
-            <td>${roc.toFixed(2)}%</td>
-        `;
-    });
+                    const newRow = table.insertRow();
+                    newRow.innerHTML = `
+                        <td>${date}</td>
+                        <td>${timeIn}</td>
+                        <td>${symbol}</td>
+                        <td>${status}</td>
+                        <td>${qty}</td>
+                        <td>${parseFloat(entryPrice).toFixed(2)}</td>
+                        <td>${parseFloat(exitPrice).toFixed(2)}</td>
+                        <td style="color: ${pnl > 0 ? 'green' : 'red'}">${pnl.toFixed(2)}</td>
+                        <td>${roc.toFixed(2)}%</td>
+                    `;
+                }
+            });
+        })
+        .catch(error => console.error('Error fetching CSV:', error));
 }
