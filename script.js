@@ -35,7 +35,7 @@ window.addEntry = function (event) {
     const entryPrice = parseFloat(document.getElementById('entryPrice').value);
     const exitPrice = parseFloat(document.getElementById('exitPrice').value);
 
-    if (!tradeDate || !timeIn || !symbol || qty <= 0 || entryPrice <= 0 || exitPrice <= 0) {
+    if (!tradeDate || !timeIn || !symbol || isNaN(qty) || qty <= 0 || isNaN(entryPrice) || entryPrice <= 0 || isNaN(exitPrice) || exitPrice <= 0) {
         alert("Please fill all fields correctly.");
         return;
     }
@@ -51,6 +51,7 @@ window.addEntry = function (event) {
     newRow.innerHTML = `
         <td>${tradeDate}</td>
         <td>${timeIn}</td>
+        <td>${symbol}</td>
         <td>${status}</td>
         <td>${qty}</td>
         <td>${entryPrice.toFixed(2)}</td>
@@ -92,7 +93,7 @@ window.uploadCSV = function () {
                 const entryPriceNum = parseFloat(entryPrice);
                 const exitPriceNum = parseFloat(exitPrice);
 
-                if (!date || !timeIn || !symbol || qtyNum <= 0 || entryPriceNum <= 0 || exitPriceNum <= 0) {
+                if (!date || !timeIn || !symbol || isNaN(qtyNum) || qtyNum <= 0 || isNaN(entryPriceNum) || entryPriceNum <= 0 || isNaN(exitPriceNum) || exitPriceNum <= 0) {
                     alert("Invalid data in CSV.");
                     return;
                 }
@@ -106,6 +107,7 @@ window.uploadCSV = function () {
                 newRow.innerHTML = `
                     <td>${date}</td>
                     <td>${timeIn}</td>
+                    <td>${symbol}</td>
                     <td>${status}</td>
                     <td>${qtyNum}</td>
                     <td>${entryPriceNum.toFixed(2)}</td>
@@ -124,7 +126,8 @@ window.uploadCSV = function () {
 window.syncData = async function () {
     const response = await fetch('https://drive.google.com/uc?export=download&id=YOUR_FILE_ID'); // Replace with your file ID
     if (!response.ok) {
-        throw new Error('Network response was not ok');
+        alert('Error fetching CSV file');
+        return;
     }
     const csvText = await response.text();
     const rows = csvText.split('\n').map(row => row.split(','));
@@ -142,7 +145,7 @@ window.syncData = async function () {
         const entryPriceNum = parseFloat(entryPrice);
         const exitPriceNum = parseFloat(exitPrice);
 
-        if (!date || !timeIn || !symbol || qtyNum <= 0 || entryPriceNum <= 0 || exitPriceNum <= 0) {
+        if (!date || !timeIn || !symbol || isNaN(qtyNum) || qtyNum <= 0 || isNaN(entryPriceNum) || entryPriceNum <= 0 || isNaN(exitPriceNum) || exitPriceNum <= 0) {
             alert("Invalid data in CSV.");
             return;
         }
@@ -156,6 +159,7 @@ window.syncData = async function () {
         newRow.innerHTML = `
             <td>${date}</td>
             <td>${timeIn}</td>
+            <td>${symbol}</td>
             <td>${status}</td>
             <td>${qtyNum}</td>
             <td>${entryPriceNum.toFixed(2)}</td>
