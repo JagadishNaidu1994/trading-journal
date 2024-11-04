@@ -81,3 +81,41 @@ function displayEntries() {
         entriesTable.appendChild(row);
     });
 }
+function addEntry() {
+    // Get input values
+    const tradeDate = document.getElementById('tradeDate').value;
+    const timeIn = document.getElementById('timeIn').value;
+    const symbol = document.getElementById('symbol').value;
+    const qty = document.getElementById('qty').value;
+    const entryPrice = document.getElementById('entryPrice').value;
+    const exitPrice = document.getElementById('exitPrice').value;
+
+    // Calculate P&L
+    const pnl = (exitPrice - entryPrice) * qty;
+    const status = pnl > 0 ? 'Profit' : 'Loss';
+
+    // Calculate ROC%
+    const initialCapital = parseFloat(document.getElementById('initialCapital').value) || 0;
+    const roc = initialCapital > 0 ? (pnl / initialCapital) * 100 : 0;
+
+    // Create a new row in the trades table
+    const table = document.getElementById('tradesTable').getElementsByTagName('tbody')[0];
+    const newRow = table.insertRow();
+    newRow.innerHTML = `
+        <td>${tradeDate}</td>
+        <td>${timeIn}</td>
+        <td><span class="${status === 'Profit' ? 'icon-profit' : 'icon-loss'}"></span>${status}</td>
+        <td>${qty}</td>
+        <td>${entryPrice}</td>
+        <td>${exitPrice}</td>
+        <td>${pnl.toFixed(2)}</td>
+        <td>${roc.toFixed(2)}%</td>
+    `;
+
+    // Clear the form fields
+    document.getElementById('addTradeForm').reset();
+
+    // Close the modal
+    closeModal();
+}
+
