@@ -4,6 +4,48 @@ document.getElementById('addTradeBtn').addEventListener('click', () => {
 
 document.getElementById('addTradeForm').addEventListener('submit', addEntry);
 document.getElementById('editTradeForm').addEventListener('submit', saveEditEntry);
+// Load initial capital on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedCapital = localStorage.getItem('initialCapital');
+    const initialCapitalInput = document.getElementById('initialCapital');
+    const saveBtn = document.getElementById('saveCapitalBtn');
+    const editBtn = document.getElementById('editCapitalBtn');
+
+    if (savedCapital) {
+        initialCapitalInput.value = savedCapital;
+        initialCapitalInput.readOnly = true;
+        saveBtn.style.display = 'none';
+        editBtn.style.display = 'inline-block';
+    }
+});
+
+// Function to save initial capital
+function saveInitialCapital() {
+    const initialCapitalInput = document.getElementById('initialCapital');
+    const saveBtn = document.getElementById('saveCapitalBtn');
+    const editBtn = document.getElementById('editCapitalBtn');
+
+    const capitalValue = initialCapitalInput.value;
+    if (capitalValue) {
+        localStorage.setItem('initialCapital', capitalValue);
+        initialCapitalInput.readOnly = true;
+        saveBtn.style.display = 'none';
+        editBtn.style.display = 'inline-block';
+    } else {
+        alert("Please enter a valid initial capital amount.");
+    }
+}
+
+// Function to enable editing of initial capital
+function editInitialCapital() {
+    const initialCapitalInput = document.getElementById('initialCapital');
+    const saveBtn = document.getElementById('saveCapitalBtn');
+    const editBtn = document.getElementById('editCapitalBtn');
+
+    initialCapitalInput.readOnly = false;
+    saveBtn.style.display = 'inline-block';
+    editBtn.style.display = 'none';
+}
 
 function openModal(modalId) {
     document.getElementById(modalId).style.display = 'block';
