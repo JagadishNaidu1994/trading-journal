@@ -63,6 +63,37 @@ window.addEntry = function (event) {
     document.getElementById('addTradeForm').reset();
     closeModal();
 }
+// Function to toggle theme
+function toggleTheme() {
+    const body = document.body;
+    const isDark = body.classList.toggle('dark-theme');
+
+    // Save the theme preference in local storage
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+
+    // Update the styles based on the theme
+    if (isDark) {
+        body.style.backgroundColor = '#121212';
+        body.style.color = '#ffffff';
+        // Add more dark theme styles here if needed
+    } else {
+        body.style.backgroundColor = '#f4f4f4';
+        body.style.color = '#000000';
+        // Add more light theme styles here if needed
+    }
+}
+
+// Load the theme from local storage on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.getElementById('themeToggle').checked = true;
+        toggleTheme(); // Apply dark theme
+    }
+});
+
+// Add event listener to toggle button
+document.getElementById('themeToggle').addEventListener('change', toggleTheme);
 
 // Upload CSV file
 window.uploadCSV = function () {
