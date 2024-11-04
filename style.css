@@ -198,3 +198,44 @@ input:checked + .slider {
 input:checked + .slider:before {
     transform: translateX(30px); /* Move the circle */
 }
+/* Main page and popup table styles */
+.dark-theme table {
+    background-color: #1e1e1e; /* Dark table background */
+    color: #e0e0e0;
+}
+
+.dark-theme th, .dark-theme td {
+    background-color: #2c2c2c; /* Dark table cells */
+    border: 1px solid #757575;
+    color: #ffffff;
+}
+
+.dark-theme .modal-content {
+    background-color: #1e1e1e; /* Dark popup background */
+    color: #ffffff;
+    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2); /* Soft shadow */
+}
+
+/* Dark-themed input fields inside modal */
+.dark-theme input[type="text"],
+.dark-theme input[type="number"],
+.dark-theme input[type="date"],
+.dark-theme input[type="time"] {
+    background-color: #424242;
+    border: 1px solid #757575;
+    color: #ffffff;
+}
+
+/* Dark-themed close button in modal */
+.dark-theme .close {
+    color: #bbb;
+}
+
+.dark-theme .close:hover {
+    color: #ffffff;
+}
+
+/* Other dark-themed adjustments */
+.dark-theme h1, .dark-theme h2 {
+    color: #e0e0e0;
+}
