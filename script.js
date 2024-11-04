@@ -41,20 +41,27 @@ function displayEntries() {
     entriesTable.innerHTML = '';
 
     entries.forEach((entry, index) => {
+        // Safely parse values and provide defaults if undefined
+        const entryPrice = isNaN(entry.entryPrice) ? 0 : entry.entryPrice;
+        const exitPrice = isNaN(entry.exitPrice) ? 0 : entry.exitPrice;
+        const qty = isNaN(entry.qty) ? 0 : entry.qty;
+        const pnl = isNaN(entry.pnl) ? 0 : entry.pnl;
+        const roc = isNaN(entry.roc) ? 0 : entry.roc;
+
         const row = document.createElement('tr');
 
         row.innerHTML = `
-            <td>${entry.date}</td>
-            <td>${entry.timeIn}</td>
-            <td>${entry.timeOut}</td>
-            <td>${entry.symbol}</td>
+            <td>${entry.date || ''}</td>
+            <td>${entry.timeIn || ''}</td>
+            <td>${entry.timeOut || ''}</td>
+            <td>${entry.symbol || ''}</td>
             <td class="${entry.status === 'Profit' ? 'profit-icon' : 'loss-icon'}">${entry.status === 'Profit' ? '✔️' : '❌'}</td>
-            <td>${entry.qty}</td>
-            <td>${entry.entryPrice.toFixed(2)}</td>
-            <td>${entry.exitPrice.toFixed(2)}</td>
-            <td>${entry.holdTime}</td>
-            <td class="${entry.pnl >= 0 ? 'win' : 'loss'}">${entry.pnl.toFixed(2)}</td>
-            <td>${entry.roc}%</td>
+            <td>${qty}</td>
+            <td>${entryPrice.toFixed(2)}</td>
+            <td>${exitPrice.toFixed(2)}</td>
+            <td>${entry.holdTime || ''}</td>
+            <td class="${pnl >= 0 ? 'win' : 'loss'}">${pnl.toFixed(2)}</td>
+            <td>${roc.toFixed(2)}%</td>
             <td>${entry.tags || ''}</td>
             <td>
                 <button onclick="editEntry(${index})">Edit</button>
@@ -65,6 +72,7 @@ function displayEntries() {
         entriesTable.appendChild(row);
     });
 }
+
 
 function calculateHoldTime(timeIn, timeOut) {
     const inTime = new Date(`1970-01-01T${timeIn}:00`);
