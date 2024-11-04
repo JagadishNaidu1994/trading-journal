@@ -4,119 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trading Journal</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Trading Journal</h1>
-    <button onclick="syncData()">Sync with Online CSV</button>
+    <button id="addTradeButton">+ Add Trade</button>
 
-    <div class="csv-upload">
-    <label for="csvFile">Upload Trades CSV:</label>
-    <input type="file" id="csvFile" accept=".csv">
-    <button onclick="uploadCSV()">Upload</button>
-</div>
-
-    
-    <!-- Add Trade Button -->
-    <button id="addTradeButton" class="material-button">+ Add Trade</button>
-
-    <!-- Initial Capital Input -->
-<div class="initial-capital">
-    <label for="initialCapital">Initial Capital:</label>
-    <input type="number" id="saveInitialCapital" placeholder="Enter your initial capital">
-    <button id="saveCapitalBtn" onclick="saveInitialCapital()">Save</button>
-    <button id="editCapitalBtn" onclick="editInitialCapital()" style="display: none;">Edit</button>
-</div>
-
-
-    <div id="entriesContainer">
-        <h2>Trades Table</h2>
-        <table class="material-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Time In</th>
-                    <th>Symbol</th>
-                    <th>Status</th>
-                    <th>Qty</th>
-                    <th>Entry</th>
-                    <th>Exit</th>
-                    <th>P&L</th>
-                    <th>ROC %</th>
-                    <th>Tags</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="entriesTable">
-                <!-- Entries will be dynamically added here -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- Edit Trade Modal -->
-    <div id="editTradeModal" class="modal">
+    <div id="addTradeModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal('editTradeModal')">&times;</span>
-            <h2>Edit Trade</h2>
-            <form id="editTradeForm">
-                <!-- Form fields similar to add form, populated dynamically -->
-                <input type="hidden" id="editIndex">
-                <label>Date:</label>
-                <input type="date" id="editDate" required>
-                <label>Time In:</label>
-                <input type="time" id="editTimeIn" required>
-                <label>Symbol:</label>
-                <input type="text" id="editSymbol" required>
-                <label>Entry Price:</label>
-                <input type="number" id="editEntryPrice" step="0.01" required>
-                <label>Exit Price:</label>
-                <input type="number" id="editExitPrice" step="0.01" required>
-                <label>Quantity:</label>
-                <input type="number" id="editQty" required>
-                <button type="submit" class="material-button">Save Changes</button>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Add Trade</h2>
+            <form id="addTradeForm" onsubmit="addEntry(); return false;">
+                <label for="tradeDate">Date:</label>
+                <input type="date" id="tradeDate" required>
+
+                <label for="timeIn">Time In:</label>
+                <input type="time" id="timeIn" required>
+
+                <label for="symbol">Symbol:</label>
+                <input type="text" id="symbol" placeholder="e.g. AAPL" required>
+
+                <label for="qty">Quantity:</label>
+                <input type="number" id="qty" required min="1">
+
+                <label for="entryPrice">Entry Price:</label>
+                <input type="number" id="entryPrice" required step="0.01">
+
+                <label for="exitPrice">Exit Price:</label>
+                <input type="number" id="exitPrice" required step="0.01">
+
+                <button type="submit">Add Trade</button>
             </form>
         </div>
     </div>
 
-    <!-- Add Trade Modal -->
-    <!-- Add Trade Modal -->
-<div id="addTradeModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Add Trade</h2>
-        <form id="addTradeForm" onsubmit="addEntry(); return false;">
-            <div class="form-group">
-                <label for="tradeDate">Date:</label>
-                <input type="date" id="tradeDate" required>
-            </div>
-            <div class="form-group">
-                <label for="timeIn">Time In:</label>
-                <input type="time" id="timeIn" required>
-            </div>
-            <div class="form-group">
-                <label for="symbol">Symbol:</label>
-                <input type="text" id="symbol" required>
-            </div>
-            <div class="form-group">
-                <label for="qty">Quantity:</label>
-                <input type="number" id="qty" min="1" required>
-            </div>
-            <div class="form-group">
-                <label for="entryPrice">Entry Price:</label>
-                <input type="number" id="entryPrice" step="0.01" required>
-            </div>
-            <div class="form-group">
-                <label for="exitPrice">Exit Price:</label>
-                <input type="number" id="exitPrice" step="0.01" required>
-            </div>
-            <div class="form-buttons">
-                <button type="submit">Add Trade</button>
-                <button type="button" class="cancel-button" onclick="closeModal()">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
-
+    <table id="tradesTable">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Time In</th>
+                <th>Status</th>
+                <th>Quantity</th>
+                <th>Entry Price</th>
+                <th>Exit Price</th>
+                <th>P&L</th>
+                <th>ROC%</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Trade entries will be added here -->
+        </tbody>
+    </table>
 
     <script src="script.js"></script>
 </body>
