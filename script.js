@@ -25,7 +25,7 @@ function parseCSVAndSyncEntries(csvData) {
     lines.forEach((line, index) => {
         if (index === 0) return; // Skip header row
 
-        const [date, timeIn, timeOut, symbol, qty, entryPrice, exitPrice] = line.split(',');
+        const [date, timeIn, symbol, qty, entryPrice, exitPrice] = line.split(',');
 
         // Check if the entry already exists based on unique identifiers (e.g., date and symbol)
         const duplicate = entries.some(entry => 
@@ -36,7 +36,6 @@ function parseCSVAndSyncEntries(csvData) {
             const newEntry = {
                 date: date.trim(),
                 timeIn: timeIn.trim(),
-                timeOut: timeOut.trim(),
                 symbol: symbol.trim(),
                 qty: parseFloat(qty.trim()),
                 entryPrice: parseFloat(entryPrice.trim()),
@@ -68,15 +67,12 @@ function displayEntries() {
         row.innerHTML = `
             <td>${entry.date}</td>
             <td>${entry.timeIn}</td>
-            <td>${entry.timeOut}</td>
             <td>${entry.symbol}</td>
             <td>${result}</td>
             <td>${entry.qty}</td>
             <td>${entry.entryPrice}</td>
             <td>${entry.exitPrice}</td>
-            <td>${entry.timeOut - entry.timeIn} hrs</td>
             <td style="color: ${pnlColor}">${pnl.toFixed(2)}</td>
-
             <td>
                 <button onclick="editEntry(${index})">Edit</button>
                 <button onclick="deleteEntry(${index})">Delete</button>
