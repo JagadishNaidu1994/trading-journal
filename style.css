@@ -1,164 +1,47 @@
+/* Basic Reset and Styles */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f4f4f4;
+    color: #333;
     margin: 0;
     padding: 20px;
 }
+
+/* Dark Theme Styles */
 .dark-theme {
-    background-color: #121212; /* Dark background */
-    color: #ffffff; /* Light text */
+    background-color: #121212;
+    color: #ffffff;
 }
 
-/* Adjustments for the dark theme in other elements */
 .dark-theme .container {
-    background: #1e1e1e; /* Darker card background */
+    background: #1e1e1e;
 }
 
 .dark-theme input[type="text"],
 .dark-theme input[type="number"],
-.dark-theme input[type="date"],
-.dark-theme input[type="time"] {
-    background-color: #424242; /* Dark input background */
-    border: 1px solid #757575; /* Light grey border */
-    color: #ffffff; /* Light text inside inputs */
+.dark-theme input[type="date"] {
+    background-color: #424242;
+    color: #ffffff;
+    border: 1px solid #757575;
 }
 
-/* Further adjustments for tables and other elements can be added as needed */
-
-.container {
-    max-width: 800px;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.dark-theme table {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
 }
 
-h1 {
-    text-align: center;
+.dark-theme th, .dark-theme td {
+    background-color: #2c2c2c;
+    border: 1px solid #757575;
+    color: #ffffff;
 }
 
-.initial-capital {
-    margin-bottom: 20px;
+.dark-theme .modal-content {
+    background-color: #1e1e1e;
+    color: #ffffff;
 }
 
-label {
-    display: block;
-    margin: 10px 0 5px;
-}
-
-.input-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.input-group > div {
-    flex: 1 1 48%; /* Adjust to fit two columns with some gap */
-}
-
-input[type="text"],
-input[type="number"],
-input[type="date"],
-input[type="time"] {
-    width: 80%; /* Take full width of parent div */
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.btn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: inline-block;
-}
-
-.btn:hover {
-    background-color: #45a049;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-th, td {
-    padding: 10px;
-    text-align: left;
-    border: 1px solid #ccc;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding-top: 60px;
-}
-
-.modal-content {
-    background-color: #ffffff;
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%; /* Wider modal */
-    max-width: 600px; /* Set a maximum width */
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-h2 {
-    color: #4CAF50; /* Color for the heading */
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Style for inputs inside modal */
-.modal-content input[type="text"],
-.modal-content input[type="number"],
-.modal-content input[type="date"],
-.modal-content input[type="time"] {
-    border-color: #4CAF50; /* Change border color */
-}
-
-/* Add some colorful styles to buttons in modal */
-.modal-content button {
-    background-color: #2196F3; /* Change button color */
-    color: white;
-}
-
-.modal-content button:hover {
-    background-color: #1976D2; /* Darker button on hover */
-}
-
+/* Toggle Button */
 .theme-switch {
     display: flex;
     align-items: center;
@@ -166,11 +49,10 @@ h2 {
 }
 
 .theme-switch input {
-    display: none; /* Hide the default checkbox */
+    display: none;
 }
 
 .slider {
-    position: relative;
     width: 60px;
     height: 30px;
     background-color: #ccc;
@@ -180,10 +62,10 @@ h2 {
 }
 
 .slider:before {
-    position: absolute;
     content: "";
-    height: 26px;
+    position: absolute;
     width: 26px;
+    height: 26px;
     left: 2px;
     bottom: 2px;
     background-color: white;
@@ -192,50 +74,38 @@ h2 {
 }
 
 input:checked + .slider {
-    background-color: #4CAF50; /* Color when toggled */
+    background-color: #4CAF50;
 }
 
 input:checked + .slider:before {
-    transform: translateX(30px); /* Move the circle */
-}
-/* Main page and popup table styles */
-.dark-theme table {
-    background-color: #1e1e1e; /* Dark table background */
-    color: #e0e0e0;
+    transform: translateX(30px);
 }
 
-.dark-theme th, .dark-theme td {
-    background-color: #2c2c2c; /* Dark table cells */
-    border: 1px solid #757575;
-    color: #ffffff;
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
-.dark-theme .modal-content {
-    background-color: #1e1e1e; /* Dark popup background */
-    color: #ffffff;
-    box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2); /* Soft shadow */
+.modal-content {
+    position: relative;
+    background-color: #f4f4f4;
+    margin: 10% auto;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
 }
 
-/* Dark-themed input fields inside modal */
-.dark-theme input[type="text"],
-.dark-theme input[type="number"],
-.dark-theme input[type="date"],
-.dark-theme input[type="time"] {
-    background-color: #424242;
-    border: 1px solid #757575;
-    color: #ffffff;
-}
-
-/* Dark-themed close button in modal */
-.dark-theme .close {
-    color: #bbb;
-}
-
-.dark-theme .close:hover {
-    color: #ffffff;
-}
-
-/* Other dark-themed adjustments */
-.dark-theme h1, .dark-theme h2 {
-    color: #e0e0e0;
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    cursor: pointer;
 }
