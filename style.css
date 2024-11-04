@@ -1,120 +1,31 @@
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
-}
-.initial-capital {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-}
-
-.initial-capital input {
-    margin-right: 10px;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.initial-capital button {
-    background-color: #6200ea;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-left: 5px;
-}
-
-.initial-capital button:hover {
-    background-color: #3700b3;
-}
-
-.initial-capital input[readonly] {
-    background-color: #f0f2f5;
-    color: #555;
-}
-
-h1 {
-    color: #333;
-    text-align: center;
-}
-
-.material-button {
-    background-color: #6200ea;
-    color: white;
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.material-button:hover {
-    background-color: #3700b3;
-}
-
-.material-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.material-table th, .material-table td {
-    padding: 12px 15px;
-    text-align: center;
-}
-
-.material-table th {
-    background-color: #6200ea;
-    color: #ffffff;
-}
-
-.material-table tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.material-table tr:hover {
-    background-color: #f1f1f1;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: auto;
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
     padding: 20px;
-    border: 1px solid #888;
-    width: 400px;
-    border-radius: 8px;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 24px;
-    font-weight: bold;
+h2 {
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Button Styles */
+button {
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
+button:hover {
+    background-color: #3700b3;
 }
+
 /* Modal Styles */
 .modal {
     display: none; /* Hidden by default */
@@ -125,78 +36,77 @@ h1 {
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
-/* Modal Content */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #fff;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 400px; /* Could be more or less, depending on screen size */
+    width: 90%; /* Could be more or less, depending on screen size */
+    max-width: 500px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 /* Form Styles */
-.form-group {
-    margin-bottom: 15px;
+form {
+    display: flex;
+    flex-direction: column;
 }
 
-.form-group label {
-    display: block;
-    font-weight: bold;
+label {
     margin-bottom: 5px;
+    font-weight: 500;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 8px;
+input[type="date"],
+input[type="time"],
+input[type="text"],
+input[type="number"] {
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-sizing: border-box;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
 }
 
-.form-buttons {
-    display: flex;
-    justify-content: space-between;
+input[type="date"]:focus,
+input[type="time"]:focus,
+input[type="text"]:focus,
+input[type="number"]:focus {
+    border-color: #6200ea;
+    outline: none;
 }
 
-button {
-    background-color: #4CAF50; /* Green */
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    text-align: left;
+    padding: 12px;
+}
+
+th {
+    background-color: #6200ea;
     color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-button:hover {
-    background-color: #45a049; /* Darker green */
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
-.cancel-button {
-    background-color: #f44336; /* Red */
+tr:hover {
+    background-color: #e0e0e0;
 }
 
-.cancel-button:hover {
-    background-color: #e53935; /* Darker red */
+/* Status Color Coding */
+td:nth-child(7) {
+    font-weight: bold;
 }
