@@ -4,6 +4,26 @@ body {
     margin: 0;
     padding: 20px;
 }
+.dark-theme {
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* Light text */
+}
+
+/* Adjustments for the dark theme in other elements */
+.dark-theme .container {
+    background: #1e1e1e; /* Darker card background */
+}
+
+.dark-theme input[type="text"],
+.dark-theme input[type="number"],
+.dark-theme input[type="date"],
+.dark-theme input[type="time"] {
+    background-color: #424242; /* Dark input background */
+    border: 1px solid #757575; /* Light grey border */
+    color: #ffffff; /* Light text inside inputs */
+}
+
+/* Further adjustments for tables and other elements can be added as needed */
 
 .container {
     max-width: 800px;
