@@ -1,6 +1,7 @@
 // Define your CSV URL here
 // Corrected CSV URL from GitHub
-const csvUrl = "https://raw.githubusercontent.com/JagadishNaidu1994/trading-journal/main/trades.csv";
+// CSV URL from GitHub (using CORS proxy)
+const csvUrl = "https://cors-anywhere.herokuapp.com/https://raw.githubusercontent.com/JagadishNaidu1994/trading-journal/main/trades.csv";
 
 // Function to sync data from online CSV
 async function syncData() {
